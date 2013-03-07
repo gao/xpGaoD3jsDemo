@@ -19,7 +19,7 @@
 				$container.empty();
 				$container.append("<div class='fstCon'></div>");
 				
-				var dataSet = createDataSet(10,1,10);
+				var dataSet = createDataSet(30);
 				var chartData = transformData(dataSet);
 				view.chartData = chartData;
                 
@@ -70,13 +70,9 @@
 		 *          },
 		 *          {..}]
 		 */
-		function createDataSet(dataSize,fromNum,toNum){
+		function createDataSet(dataSize){
 			var dataSet = [];
-			
-			//should bigger than 7
 			dataSize = dataSize || 10;
-			fromNum = fromNum || 1;
-			toNum = toNum || 10;
 			
 			for(var i = 1; i <= dataSize;i++){
 				var data = {};
@@ -88,13 +84,8 @@
 				var friendsArr = [];
 				for(var j = 0; j < friendsNum;j++){
 					var friend = {};
-					var userId = RandomData(1,dataSize);
-					
-					if(userId == i){
-						userId = (i+1 > dataSize) ? i-1 : i+1;
-					}
-					friend.id = userId;
-					friend.weight = RandomData(fromNum,toNum);
+					friend.id = j;
+					friend.weight = RandomData(1,10);
 					friendsArr.push(friend);
 				}
 				data.friends = friendsArr;
