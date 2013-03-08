@@ -14,26 +14,29 @@
                 var view = this;
                 var $e = view.$el;
                 
-                var $container = $e.find(".UserWeightSummary");
-                //clear container
-				$container.empty();
-				$container.append("<div class='fstCon'></div>");
-				
-				var dataSet = createDataSet(30);
+                var dataSet = createDataSet(30);
 				var chartData = transformData(dataSet);
 				view.chartData = chartData;
                 
+                view.showView(chartData);
+			},
+			showView:function(chartData){
+				var view = this;
+                var $e = view.$el;
+                
+				var $container = $e.find(".UserWeightSummary");
+                //clear container
+				$container.empty();
+				$container.append("<div class='fstCon'></div>");
+                
                 var w = 960, h = 700;
-
-				var labelDistance = 0;
-				
 				var vis = d3.select(".fstCon").append("svg:svg").attr("width", w).attr("height", h);
 	
 				var force = d3.layout.force().size([w, h])
 							.nodes(chartData.nodes)
 							.links(chartData.links)
 							.gravity(1)
-							.linkDistance(50)
+							.linkDistance(function(d){return d.weight+50})
 							.charge(-3000);
 				force.start();
 				
@@ -96,11 +99,19 @@
 			return dataSet;
 		}
 		
-		
+		//generate the data between fromNum and toNum
 		function RandomData(fromNum,toNum){ 
 			return parseInt(Math.random()*(toNum-fromNum) + fromNum); 
 		}
 		
+		/**
+		 * Transform the data to the chart data type
+		 * @return an array of nodes, like:
+		 *         {
+		 *         	nodes:[{name:"user1"},{...}],
+		 *          links:[{"source":1,"target":2,"weight":3},{...}]
+		 *         }
+		 */
 		function transformData(dataSet){ 
 			var object = {nodes:[],links:[]};
 			$.each(dataSet,function(i,user){
