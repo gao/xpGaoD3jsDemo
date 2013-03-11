@@ -65,4 +65,8 @@ body {
 .UserWeight {
   margin: 10px;
 }
+.UserWeight .node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
 

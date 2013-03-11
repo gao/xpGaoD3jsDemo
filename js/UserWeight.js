@@ -48,7 +48,7 @@
 							.style("stroke", "#CCC");
 				
 				var node = vis.selectAll("g.node").data(chartData.nodes).enter().append("svg:g").attr("class", "node");
-					node.append("svg:circle").attr("r", 5).style("fill", "#555").style("stroke", "#FFF").style("stroke-width", 3);
+					node.append("svg:circle").attr("r", 5).style("fill", "#fd8d3c");//.style("stroke", "#FCA000").style("stroke-width", 1)
 					node.call(force.drag);
 					node.append("text").attr("dx", 12).attr("dy", ".35em").text(function(d) { return d.name });
 				
@@ -59,7 +59,16 @@
 				        .attr("y2", function(d) { return d.target.y; });
 		
 				    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-				});/**/
+				});
+				
+				$e.delegate("circle","click",function(){
+					$e.find("circle").each(function(){
+						$(this).attr("r", 5);
+						$(this).css("fill", '#fd8d3c');
+					});
+					$(this).attr("r", 10);
+					$(this).css("fill", 'green');
+				 });
 			}
         });
         
