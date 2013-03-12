@@ -16,6 +16,7 @@
                 
                 var dataSet = createDataSet(30);
 				var chartData = transformData(dataSet);
+				view.dataSet = dataSet;
 				view.chartData = chartData;
                 
                 view.showView(chartData);
@@ -51,6 +52,12 @@
 					node.append("svg:circle").attr("r", 5).style("fill", "#fd8d3c");//.style("stroke", "#FCA000").style("stroke-width", 1)
 					node.call(force.drag);
 					node.append("text").attr("dx", 12).attr("dy", ".35em").text(function(d) { return d.name });
+					
+				node.append("title").text(function(d) { return d.name; });
+					
+				var circle = vis.selectAll("circle");
+				circle.attr("r", function(d, i) { if(i==0){return 10;}else{return 5;} });
+				circle.style("fill", function(d, i) { if(i==0){return 'green';}else{return '#fd8d3c';} });
 				
 				force.on("tick", function() {
 					link.attr("x1", function(d) { return d.source.x; })
@@ -61,13 +68,21 @@
 				    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 				});
 				
+				//first undelegate the click event
+				$e.undelegate('circle', 'click');
+				
 				$e.delegate("circle","click",function(){
-					$e.find("circle").each(function(){
+					/*
+					 $e.find("circle").each(function(){
 						$(this).attr("r", 5);
 						$(this).css("fill", '#fd8d3c');
 					});
 					$(this).attr("r", 10);
 					$(this).css("fill", 'green');
+					*/
+					var userName = $(this).closest("g").find("text").text();
+					
+					view.showView(transformDataByName(view.dataSet,userName));
 				 });
 			}
         });
@@ -128,6 +143,36 @@
 				$.each(user.friends,function(j,friend){
 					object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
 				});
+			})
+			return object;
+		}
+		
+		/**
+		 * Transform the data to the chart data type and put the name as the first one
+		 * @return an array of nodes, like:
+		 *         {
+		 *         	nodes:[{name:"user1"},{...}],
+		 *          links:[{"source":1,"target":2,"weight":3},{...}]
+		 *         }
+		 */
+		function transformDataByName(dataSet,name){ 
+			var object = {nodes:[],links:[]};
+			$.each(dataSet,function(i,user){
+				if(name == user.name){
+					object.nodes.push({name:user.name});
+					$.each(user.friends,function(j,friend){
+						object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
+					});
+				}
+			})
+			
+			$.each(dataSet,function(i,user){
+				if(name != user.name){
+					object.nodes.push({name:user.name});
+					$.each(user.friends,function(j,friend){
+						object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
+					});
+				}
 			})
 			return object;
 		}
