@@ -109,8 +109,9 @@
 				//each user have 3 to 7 friends
 				var friendsNum = RandomData(3,7);
 				var friendsArr = [];
-				for(var j = 0; j < friendsNum;j++){
+				for(var j = 1; j < friendsNum;j++){
 					var friend = {};
+					if(j == i) continue;
 					friend.id = j;
 					friend.weight = RandomData(1,10);
 					friendsArr.push(friend);
@@ -141,7 +142,7 @@
 			$.each(dataSet,function(i,user){
 				object.nodes.push({name:user.name});
 				$.each(user.friends,function(j,friend){
-					object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
+					object.links.push({"source":user.id-1,"target":friend.id-1,"weight":friend.weight});
 				});
 			})
 			return object;
@@ -157,11 +158,12 @@
 		 */
 		function transformDataByName(dataSet,name){ 
 			var object = {nodes:[],links:[]};
+			/*
 			$.each(dataSet,function(i,user){
 				if(name == user.name){
 					object.nodes.push({name:user.name});
 					$.each(user.friends,function(j,friend){
-						object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
+						object.links.push({"source":user.id-1,"target":friend.id-1,"weight":friend.weight});
 					});
 				}
 			})
@@ -170,7 +172,27 @@
 				if(name != user.name){
 					object.nodes.push({name:user.name});
 					$.each(user.friends,function(j,friend){
-						object.links.push({"source":user.id-1,"target":friend.id,"weight":friend.weight});
+						object.links.push({"source":user.id-1,"target":friend.id-1,"weight":friend.weight});
+					});
+				}
+			})
+			*/
+			var targetUserId = 0;
+			$.each(dataSet,function(i,user){
+				if(name == user.name){
+					object.nodes.push({name:user.name});
+					targetUserId = user.id;
+					$.each(user.friends,function(j,friend){
+						object.links.push({"source":0,"target":((user.id>friend.id)?friend.id:(friend.id-1)),"weight":friend.weight});
+					});
+				}
+			})
+			
+			$.each(dataSet,function(i,user){
+				if(name != user.name){
+					object.nodes.push({name:user.name});
+					$.each(user.friends,function(j,friend){
+						object.links.push({"source":((targetUserId>user.id)?user.id:(user.id-1)),"target":((targetUserId>friend.id)?friend.id:((targetUserId==friend.id)?0:friend.id-1)),"weight":friend.weight});
 					});
 				}
 			})
