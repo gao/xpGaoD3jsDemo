@@ -22,6 +22,8 @@
             		var menu = $li.attr("data-nav");
             		if(menu == "UserWeight"){
             		  brite.display("UserWeight");
+            		}if(menu == "UserWeightD3"){
+            		  brite.display("UserWeightD3");
             		}
             	}
             }
