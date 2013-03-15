@@ -24,6 +24,8 @@
             		  brite.display("UserWeight");
             		}if(menu == "UserWeightD3"){
             		  brite.display("UserWeightD3");
+            		}if(menu == "UserWeightD3Cluster"){
+            		  brite.display("UserWeightD3Cluster");
             		}
             	}
             }

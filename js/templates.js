@@ -36,3 +36,12 @@ Handlebars.templates['tmpl-UserWeightD3'] = Handlebars.template(function (Handle
 
   return "<div class=\"UserWeightD3\">\n		<div class=\"UserWeightD3Summary\"></div>\n	</div>";}
 );
+
+// template --- tmpl-UserWeightD3Cluster ---
+Handlebars.templates['tmpl-UserWeightD3Cluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"UserWeightD3Cluster\">\n		<div class=\"UserWeightD3ClusterSummary\"></div>\n	</div>";}
+);
