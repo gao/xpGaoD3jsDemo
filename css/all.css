@@ -82,6 +82,7 @@ body {
 .UserWeightD3Cluster circle.nodes {
   stroke: #FB4100;
   stroke-width: 1.5px;
+  cursor: pointer;
 }
 .UserWeightD3Cluster circle.origin {
   stroke: #CCC;

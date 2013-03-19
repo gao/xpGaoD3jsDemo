@@ -16,7 +16,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu active\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UserWeightD3Cluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu active\">UserWeightD3Cluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---

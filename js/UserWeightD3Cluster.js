@@ -17,13 +17,13 @@
                 var dataSet = createDataSet(30);
 				var chartData = transformData(dataSet);
 				view.dataSet = dataSet;
-				view.chartData = chartData;
                 
                 view.showView(chartData);
 			},
 			showView:function(data){
 				var view = this;
                 var $e = view.$el;
+                view.curData = data;
                 
 				var $container = $e.find(".UserWeightD3ClusterSummary");
                 //clear container
@@ -122,16 +122,59 @@
 		        
 		        function click(d){
 		        	var userName = d.name;
-		        	var userData = transformData(view.dataSet,userName);
 		        	
-		        	vis.selectAll("g.link").select("line").transition().ease("linear").duration(800).attr("x1",0).attr("y1",0);
-	              	vis.selectAll("g.link").transition().duration(800).remove();
-	              	vis.selectAll("text").transition().ease("linear").duration(800).remove();
-		        	vis.selectAll("circle").transition().ease("circle").duration(800).attr("r",0).remove();
-			         
-		        	window.setTimeout(function(){
-		        		view.showView(userData);
-		        	},1000);
+		        	var thisCircle = d3.select(this);
+		        	var cxVal = thisCircle.attr("cx");
+		        	var cyVal = thisCircle.attr("cy");
+		        	
+		        	if(view.curData.name != userName){
+		        		var parentName = d.parent.name;
+		        		var userData = transformData(view.dataSet,userName);
+		        		/*
+			        	vis.selectAll("g.link").select("line").transition().ease("linear").duration(800).attr("x1",0).attr("y1",0);
+		              	vis.selectAll("g.link").transition().duration(800).remove();
+		              	vis.selectAll("text").transition().ease("linear").duration(800).remove();
+			        	vis.selectAll("circle").transition().ease("circle").duration(800).attr("r",0).remove();
+				        */
+				   		
+				   		vis.select("circle.origin").attr("class","nodes")
+				   			.attr("style","fill:url(#radialGradientNodes)")
+				   			.attr("r", 8);
+				   		
+				   		thisCircle.attr("class","origin")
+				   			.attr("style","fill:url(#radialGradientOrigin)")
+							.attr("r", 12);
+		  			    
+				       	vis.selectAll("circle").transition()
+				       		.ease("linear")
+				       		.duration(1000)
+				       		.attr("cx",function(d){return xs(d)-cxVal})
+				       		.attr("cy",function(d){return ys(d)-cyVal})
+				       		.style("opacity",0.4)
+				       		.remove();
+				       		
+				       	vis.selectAll("g.link").select("line").transition()
+				       		.ease("linear")
+				       		.duration(1000)
+				       		.attr("x1", function(d) { return xs(d)-cxVal; })
+					        .attr("y1", function(d) { return ys(d)-cyVal; })
+					        .attr("x2", function(d) { return xs(nodes[0])-cxVal; })
+					        .attr("y2", function(d) { return ys(nodes[0])-cyVal; })
+					        .style("opacity",0.4)
+					        .remove();
+					      
+					   	vis.selectAll("g.node").transition().ease("linear").duration(100).remove();
+					   	  
+					    /*vis.selectAll("g.node").transition()
+				       		.ease("linear")
+				       		.duration(1000)
+				       		.attr("transform", function(d) { return "translate(" + xs(d)-cxVal + ","+ ys(d)-cyVal+")"; })
+					        .remove();*/
+				       
+			        	window.setTimeout(function(){
+			        		view.showView(userData);
+			        	},1000);
+		        	}
 		        }
 	
 			}

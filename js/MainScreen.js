@@ -11,7 +11,7 @@
                 var view = this;
                 var $e = view.$el;
                 brite.display("ReportHeader");
-                brite.display("UserWeight");
+                brite.display("UserWeightD3Cluster");
             },
             events:{
             }
