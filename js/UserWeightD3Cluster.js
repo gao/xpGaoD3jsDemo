@@ -167,7 +167,7 @@
 					        .style("opacity",0.1)
 					        .remove();
 					      
-					   	vis.selectAll("g.node").transition().ease("linear").duration(100).remove();
+					   	vis.selectAll("g.node").transition().ease("linear").duration(500).style("opacity",0).remove();
 				       
 			        	window.setTimeout(function(){
 			        		view.showView(userData);
