@@ -42,7 +42,7 @@
 				
 				var cluster = d3.layout.cluster()
 				    .size([360, ry - 120])
-				    .sort(function(a, b){return d3.descending(a.weight, b.weight);});
+				    .sort(function(a, b){return d3.ascending(a.weight, b.weight);});
 				
 				var svg = d3.select(".fstCon").append("div")
 				    .style("width", w + "px")
@@ -58,7 +58,7 @@
 			
 				var radialGradient = defs.selectAll("radialGradient")
 					.data(radialGradients)
-				  .enter()
+				  	.enter()
 					.append("radialGradient")
 					.attr("id",function(d){return d.id})
 					.attr("r","70%")
@@ -77,46 +77,56 @@
 					.style("stop-opacity","1");
 	
 				
-				function xs(d) { return (d.depth>0?(d.y-150+(d.weight*5)):d.y) * Math.cos((d.x - 90) / 180 * Math.PI); }
-			 	function ys(d) { return (d.depth>0?(d.y-150+(d.weight*5)):d.y) * Math.sin((d.x - 90) / 180 * Math.PI); }
+				function xs(d) { return (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y) * Math.cos((d.x - 90) / 180 * Math.PI); }
+			 	function ys(d) { return (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y) * Math.sin((d.x - 90) / 180 * Math.PI); }
 			 	
-				  var nodes = cluster.nodes(data);
+				var nodes = cluster.nodes(data);
 				
-				  var link = vis.selectAll("g.link")
-			          .data(nodes)
-			          .enter()
-			          .append("svg:g")
-			          .attr("class", "link")
-			          .append("line")
-			          .attr("x1", function(d) { return xs(d); })
-			          .attr("y1", function(d) { return ys(d); })
-			          .attr("x2", function(d) { return xs(nodes[0]); })
-			          .attr("y2", function(d) { return ys(nodes[0]); });
+				var link = vis.selectAll("g.link")
+			    		.data(nodes)
+			         	.enter()
+			          	.append("svg:g")
+			          	.attr("class", "link")
+			          	.append("line")
+			          	.attr("x1", function(d) { return 0; })
+			          	.attr("y1", function(d) { return 0; })
+			          	.attr("x2", function(d) { return xs(nodes[0]); })
+			          	.attr("y2", function(d) { return ys(nodes[0]); });
 				
-				  vis.selectAll(".dot")
-					  .data(nodes)
-					.enter().append("circle")
-					  .attr("class", function(d){ return (d.depth==0) ? "origin" : "nodes";})
-					  .attr("cx", function(d) { return xs(d); })
-					  .attr("cy", function(d) { return ys(d); })
-					  .attr("r", function(d){ return (d.depth==0) ? 12 : 8; })
-					  .attr("style",function(d){return (d.depth==0) ? "fill:url(#radialGradientOrigin)" : "fill:url(#radialGradientNodes)";})
-					  .on("click", click);
+				vis.selectAll(".dot")
+						.data(nodes)
+						.enter().append("circle")
+					  	.attr("class", function(d){ return (d.depth==0) ? "origin" : "nodes";})
+					  	.attr("cx", function(d) { return 0; })
+					  	.attr("cy", function(d) { return 0; })
+					  	.attr("r", function(d){ return (d.depth==0) ? 12 : 8; })
+					  	.attr("style",function(d){return (d.depth==0) ? "fill:url(#radialGradientOrigin)" : "fill:url(#radialGradientNodes)";})
+					  	.on("click", click);
+					  	
+				vis.selectAll("circle").append("title").text(function(d) { return "Weight: " + d.weight; });
+					  
+				vis.selectAll("g.link").select("line").transition().ease("linear").duration(1000)
+					.attr("x1", function(d) { return xs(d); })
+				    .attr("y1", function(d) { return ys(d); });
+				    
+		        vis.selectAll("circle").transition().ease("linear").duration(1000)
+					.attr("cx", function(d) { return xs(d); })
+					.attr("cy", function(d) { return ys(d); });
 				  
-				  var node = vis.selectAll("g.node")
-				      .data(nodes)
-				    .enter().append("g")
-				      .attr("class", "node")
-				      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + getNodeTranslate(d) + ")"; })
-				    .append("svg:text")
-				      .attr("dx", function(d) { return d.x < 180 ? 12 : -18; })
-				      .attr("dy", ".31em")
-				      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-				      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
-				      .text(function(d) { return d.name; });
-				
+				var node = vis.selectAll("g.node")
+				    	.data(nodes)
+				    	.enter().append("g")
+				      	.attr("class", "node")
+				      	.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + getNodeTranslate(d) + ")"; })
+				    	.append("svg:text")
+				      	.attr("dx", function(d) { return d.x < 180 ? 12 : -18; })
+				      	.attr("dy", ".31em")
+				      	.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+				      	.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+				      	.text(function(d) { return d.name; });
+				      	
 				function getNodeTranslate(d){
-		        	var translate = (d.depth>0?(d.y-150+(d.weight*5)):d.y);
+		        	var translate = (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y);
 		        	return translate;
 		        }
 		        
@@ -130,12 +140,6 @@
 		        	if(view.curData.name != userName){
 		        		var parentName = d.parent.name;
 		        		var userData = transformData(view.dataSet,userName);
-		        		/*
-			        	vis.selectAll("g.link").select("line").transition().ease("linear").duration(800).attr("x1",0).attr("y1",0);
-		              	vis.selectAll("g.link").transition().duration(800).remove();
-		              	vis.selectAll("text").transition().ease("linear").duration(800).remove();
-			        	vis.selectAll("circle").transition().ease("circle").duration(800).attr("r",0).remove();
-				        */
 				   		
 				   		vis.select("circle.origin").attr("class","nodes")
 				   			.attr("style","fill:url(#radialGradientNodes)")
@@ -150,7 +154,7 @@
 				       		.duration(1000)
 				       		.attr("cx",function(d){return xs(d)-cxVal})
 				       		.attr("cy",function(d){return ys(d)-cyVal})
-				       		.style("opacity",0.4)
+				       		.style("opacity",function(d) {return (d.name == userName ? 1 :0.1);})
 				       		.remove();
 				       		
 				       	vis.selectAll("g.link").select("line").transition()
@@ -160,16 +164,10 @@
 					        .attr("y1", function(d) { return ys(d)-cyVal; })
 					        .attr("x2", function(d) { return xs(nodes[0])-cxVal; })
 					        .attr("y2", function(d) { return ys(nodes[0])-cyVal; })
-					        .style("opacity",0.4)
+					        .style("opacity",0.1)
 					        .remove();
 					      
 					   	vis.selectAll("g.node").transition().ease("linear").duration(100).remove();
-					   	  
-					    /*vis.selectAll("g.node").transition()
-				       		.ease("linear")
-				       		.duration(1000)
-				       		.attr("transform", function(d) { return "translate(" + xs(d)-cxVal + ","+ ys(d)-cyVal+")"; })
-					        .remove();*/
 				       
 			        	window.setTimeout(function(){
 			        		view.showView(userData);
