@@ -92,4 +92,16 @@ body {
   stroke: #CCC;
   stroke-width: 1.5px;
 }
+.UserWeightEaseljsCluster {
+  margin: 10px;
+}
+.UserWeightEaseljsCluster canvas {
+  float: left;
+}
+.UserWeightEaseljsCluster .hoverBoxContainer {
+  float: left;
+  font-size: 16px;
+  margin-top: 150px;
+  font-weight: bold;
+}
 
