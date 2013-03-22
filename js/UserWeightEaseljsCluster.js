@@ -14,8 +14,8 @@
 				var view = this;
                 var $e = view.$el;
                 
-                var dataSet = createDataSet(30);
-				var chartData = transformData(dataSet);
+                var dataSet = app.createDataSet(30);
+				var chartData = app.transformData(dataSet);
 				view.dataSet = dataSet;
                 
                 view.showView(chartData);
@@ -105,11 +105,12 @@
 			    	console.log(d);
 			    	var valX = d.target.x - rx;
 			    	var valY = d.target.y - ry;
-			    	
+			    	console.log(d.target.x+":"+d.target.y)
+			    	console.log(rx+"-"+ry);
 			    	createjs.Ticker.setFPS(30);  
 				    createjs.Ticker.addListener(function() {  
 				    	var container = d.target;
-			    		if(container.x != rx){
+			    		if(parseInt(container.x) != rx){
 			    			if(valX >= 0){
 					    		container.x = parseInt(container.x - 1);
 					    	}else{
@@ -117,13 +118,14 @@
 					    	}
 			    		}
 			    		
-			    		if(container.y != ry){
+			    		if(parseInt(container.y) != ry){
 			    			if(valY >= 0){
 					    		container.y = parseInt(container.y - 1);
 					    	}else{
 					    		container.y = parseInt(container.y + 1);
 					    	}
 			    		}
+			    		console.log(container.x+":::"+container.y);
 			    		
 			    		if(container.x == rx && container.y == ry){
 			    			createjs.Ticker.removeAllListeners();
