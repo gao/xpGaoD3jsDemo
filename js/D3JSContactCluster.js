@@ -20,7 +20,7 @@
                 
                 view.showView(chartData);
 			},
-			showView:function(data){
+			showView:function(data,offset){
 				var view = this;
                 var $e = view.$el;
                 view.curData = data;
@@ -30,6 +30,10 @@
                 //clear container
 				$container.empty();
 				$container.append("<div class='fstCon'></div>");
+				
+				if(typeof offset == "undefined"){
+					offset ={xVal:0,yVal:0};
+				}
                 
                 var w = 1000,
 				    h = 800,
@@ -53,7 +57,8 @@
 				    .attr("width", w)
 				    .attr("height", w)
 				    .append("svg:g")
-				    .attr("transform", "translate(" + rx + "," + ry + ")");
+				    .attr("class","curChart")
+			    	.attr("transform", "translate(" + (rx+parseFloat(offset.xVal)) + "," + (ry+parseFloat(offset.yVal)) + ")");
 				    
 				var defs = vis.append("defs");
 			
@@ -126,6 +131,8 @@
 				      	.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
 				      	.text(function(d) { return d.name; });
 				      	
+				vis.transition().ease("linear").duration(450).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
+						    
 				function getNodeTranslate(d){
 		        	var translate = (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y);
 		        	return translate;
@@ -137,7 +144,7 @@
 		        	var thisCircle = d3.select(this);
 		        	var cxVal = thisCircle.attr("cx");
 		        	var cyVal = thisCircle.attr("cy");
-		        	
+		        	var offset ={xVal:cxVal,yVal:cyVal};
 		        	if(view.curData.name != userName){
 		        		var parentName = d.parent.name;
 		        		var userData = app.transformData(view.dataSet,userName);
@@ -149,29 +156,15 @@
 				   		thisCircle.attr("class","origin")
 				   			.attr("style","fill:url(#radialGradientOrigin)")
 							.attr("r", 12);
+							
+		  			    view.showView(userData,offset);
 		  			    
-				       	vis.selectAll("circle").transition()
-				       		.ease("linear")
-				       		.duration(500)
-				       		.attr("cx",function(d){return xs(d)-cxVal})
-				       		.attr("cy",function(d){return ys(d)-cyVal})
-				       		.style("opacity",function(d) {return (d.name == userName ? 1 : 0);})
-				       		.remove();
-				       		
-				       	vis.selectAll("g.link").select("line").transition()
-				       		.ease("linear")
-				       		.duration(500)
-				       		.attr("x1", function(d) { return xs(d)-cxVal; })
-					        .attr("y1", function(d) { return ys(d)-cyVal; })
-					        .attr("x2", function(d) { return xs(nodes[0])-cxVal; })
-					        .attr("y2", function(d) { return ys(nodes[0])-cyVal; })
-					        .style("opacity",0)
-					        .remove();
-					      
-					   	vis.selectAll("g.node").transition().ease("linear").duration(500).style("opacity",0).remove();
+				      	vis.select("g.curChart").transition().ease("linear").duration(500)
+	        		  		.attr("transform", "translate(" + (rx-parseFloat(cxVal)) + "," + (ry-parseFloat(cyVal)) + ")")
+	        		  		.style("opacity",0);
 				       
 			        	window.setTimeout(function(){
-			        		view.showView(userData);
+			        		vis.remove();
 			        	},500);
 		        	}
 		        }
