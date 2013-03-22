@@ -27,12 +27,10 @@
                 var userName = data.name;
                 
 				var $container = $e.find(".D3JSContactClusterSummary");
-                //clear container
-				$container.empty();
-				$container.append("<div class='fstCon'></div>");
 				
 				if(typeof offset == "undefined"){
 					offset ={xVal:0,yVal:0};
+					$container.append("<div class='fstCon'></div>");
 				}
                 
                 var w = 1000,
@@ -48,15 +46,15 @@
 				var cluster = d3.layout.cluster()
 				    .size([360, ry - 120])
 				    .sort(function(a, b){return d3.ascending(a.weight, b.weight);});
-				
-				var svg = d3.select(".fstCon").append("div")
+
+				var svg = d3.select(".fstCon").append("svg:svg")
 				    .style("width", w + "px")
-	    			.style("height", w + "px");
+	    			.style("height", w + "px")
+	    			.style("position", "absolute")
+				    .style("z-index", 1);
 				
-				var vis = svg.append("svg:svg")
-				    .attr("width", w)
-				    .attr("height", w)
-				    .append("svg:g")
+				var vis = svg.append("svg:g")
+				    .style("opacity",0)
 				    .attr("class","curChart")
 			    	.attr("transform", "translate(" + (rx+parseFloat(offset.xVal)) + "," + (ry+parseFloat(offset.yVal)) + ")");
 				    
@@ -131,7 +129,7 @@
 				      	.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
 				      	.text(function(d) { return d.name; });
 				      	
-				vis.transition().ease("linear").duration(450).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
+				vis.transition().ease("linear").duration(500).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
 						    
 				function getNodeTranslate(d){
 		        	var translate = (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y);
@@ -158,13 +156,13 @@
 							.attr("r", 12);
 							
 		  			    view.showView(userData,offset);
-		  			    
-				      	vis.select("g.curChart").transition().ease("linear").duration(500)
+
+				      	svg.select("g.curChart").transition().ease("linear").duration(500)
 	        		  		.attr("transform", "translate(" + (rx-parseFloat(cxVal)) + "," + (ry-parseFloat(cyVal)) + ")")
 	        		  		.style("opacity",0);
 				       
 			        	window.setTimeout(function(){
-			        		vis.remove();
+			        		svg.remove();
 			        	},500);
 		        	}
 		        }
