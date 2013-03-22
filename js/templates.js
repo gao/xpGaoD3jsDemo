@@ -1,6 +1,15 @@
 Handlebars.templates = Handlebars.templates || {};
 
 
+// template --- tmpl-D3JSContactCluster ---
+Handlebars.templates['tmpl-D3JSContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"D3JSContactCluster\">\n		<div class=\"D3JSContactClusterSummary\"></div>\n	</div>";}
+);
+
 // template --- tmpl-MainScreen ---
 Handlebars.templates['tmpl-MainScreen'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -16,7 +25,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu active\">UserWeightD3Cluster</li>\n		      <li data-nav=\"UserWeightEaseljsCluster\" class=\"menu\">UserWeightEaseljsCluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UserWeightD3Cluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu active\">D3JSContactCluster</li>\n		      <li data-nav=\"UserWeightEaseljsCluster\" class=\"menu\">UserWeightEaseljsCluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---

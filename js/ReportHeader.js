@@ -26,6 +26,8 @@
             		  	brite.display("UserWeightD3");
             		}if(menu == "UserWeightD3Cluster"){
             		  	brite.display("UserWeightD3Cluster");
+            		}if(menu == "D3JSContactCluster"){
+            		  	brite.display("D3JSContactCluster");
             		}if(menu == "UserWeightEaseljsCluster"){
             		  	brite.display("UserWeightEaseljsCluster");
             		}
