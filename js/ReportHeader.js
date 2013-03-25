@@ -28,8 +28,8 @@
             		  	brite.display("UserWeightD3Cluster");
             		}if(menu == "D3JSContactCluster"){
             		  	brite.display("D3JSContactCluster");
-            		}if(menu == "UserWeightEaseljsCluster"){
-            		  	brite.display("UserWeightEaseljsCluster");
+            		}if(menu == "EaselJSContactCluster"){
+            		  	brite.display("EaselJSContactCluster");
             		}
             	}
             }

@@ -1,12 +1,12 @@
 ;(function() {
 
     (function ($) {
-        brite.registerView("UserWeightEaseljsCluster",  {
+        brite.registerView("EaselJSContactCluster",  {
 			emptyParent : true,
 			parent:".MainScreen-main"
 		}, {
         	create:function (data, config) {
-                var $html = app.render("tmpl-UserWeightEaseljsCluster");
+                var $html = app.render("tmpl-EaselJSContactCluster");
                	var $e = $($html);
                 return $e;
             },
@@ -23,7 +23,7 @@
            showView:function (data) {
                 var view = this;
                 var $e = view.$el;
-        		var $container = $e.find(".UserWeightEaseljsClusterSummary");
+        		var $container = $e.find(".EaselJSContactClusterSummary");
 				$container.append("<div class='fstCon'><canvas id='ClusterChartCanvas' width='960' height='800'></canvas></div>");
 				
 				//sort the weight
@@ -64,14 +64,7 @@
 					
 					//add the click event for node
 					container.addEventListener("click", clickEvent);
-					/*
-					container.addEventListener("mouseover",function(evt){
-						var html = app.render("tmpl-section-hover",evt.target);
-						var $hoverBoxContainer = $e.find(".hoverBoxContainer");
-						$hoverBoxContainer.empty();
-						$hoverBoxContainer.append(html);
-					});*/
-					
+
 					stage.addChild(container);
 					
 					
