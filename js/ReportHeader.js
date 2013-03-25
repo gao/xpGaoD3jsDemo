@@ -22,13 +22,13 @@
             		var menu = $li.attr("data-nav");
             		if(menu == "UserWeight"){
             		  	brite.display("UserWeight");
-            		}if(menu == "UserWeightD3"){
+            		}else if(menu == "UserWeightD3"){
             		  	brite.display("UserWeightD3");
-            		}if(menu == "UserWeightD3Cluster"){
+            		}else if(menu == "UserWeightD3Cluster"){
             		  	brite.display("UserWeightD3Cluster");
-            		}if(menu == "D3JSContactCluster"){
+            		}else if(menu == "D3JSContactCluster"){
             		  	brite.display("D3JSContactCluster");
-            		}if(menu == "EaselJSContactCluster"){
+            		}else if(menu == "EaselJSContactCluster"){
             		  	brite.display("EaselJSContactCluster");
             		}
             	}

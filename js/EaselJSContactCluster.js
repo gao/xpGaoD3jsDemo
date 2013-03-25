@@ -20,11 +20,15 @@
                 
                 view.showView(chartData);
 			},
-           showView:function (data) {
+           showView:function (data,offset) {
                 var view = this;
                 var $e = view.$el;
+                
         		var $container = $e.find(".EaselJSContactClusterSummary");
-				$container.append("<div class='fstCon'><canvas id='ClusterChartCanvas' width='960' height='800'></canvas></div>");
+        		if(typeof offset == "undefined"){
+					offset ={xVal:0,yVal:0};
+					$container.append("<div class='fstCon'><canvas id='ClusterChartCanvas' width='960' height='800'></canvas></div>");
+				}
 				
 				//sort the weight
 				var childrenData = data.children;
@@ -38,6 +42,7 @@
 				var canvas = $e.find("#ClusterChartCanvas")[0];
 				var stage = new createjs.Stage(canvas);
 				stage.enableMouseOver(20);
+				var containerRoot = new createjs.Container();
 				
 			    $.each(childrenData,function(i,item){
 					var angle = (360/childrenData.length)*(Math.PI/180)*i;
@@ -56,16 +61,16 @@
 					
 					//draw the node
 					var node = new createjs.Shape();
-					node.graphics.beginFill("rgba(255,102,0,0.75)")
+					node.graphics.beginRadialGradientFill(["#FCA000","#F8F28A"],[0,1], 0, 0, 8, 0, 0, 0)
 					                    .drawCircle(0, 0 , 8)
+					                    .beginStroke("#FB4100").drawCircle(0, 0, 9)
 					                    .closePath();
 					
 					container.addChild(node);
+					containerRoot.addChild(container);
 					
 					//add the click event for node
 					container.addEventListener("click", clickEvent);
-
-					stage.addChild(container);
 					
 					
 					//draw the line
@@ -74,56 +79,63 @@
 						.moveTo(rx,ry)
 						.lineTo(outRx,outRy)
 						.closePath();
-					stage.addChild(line)
+					containerRoot.addChild(line);
 						
 					//show the label
 					var text = new createjs.Text(childrenData[i].name, "12px Arial", "#777");
 					text.x = outRx+10;
 					text.y = outRy-10;
-					stage.addChild(text);
+					containerRoot.addChild(text);
 				});
 				
 				//draw the origin point
 				var circle = new createjs.Shape();
 			    circle.graphics
-			    		.beginRadialGradientFill(["#CCFFCC", "#006400"], [0.1, 0.9], rx, ry, 1, rx, ry, 10)
+			    		.beginRadialGradientFill(["#CCFFCC", "#006400"], [0, 1], rx, ry, 0, rx, ry, 10)
 			    		.drawCircle(rx, ry, 10)
+			    		.beginStroke("#006400").drawCircle(rx, ry, 11)
 			    		.closePath();
-			    stage.addChild(circle);
 			    
+			    containerRoot.addChild(circle);
+			    stage.addChild(containerRoot);
 			    stage.update();
-			    
 			    
 			    function clickEvent(d){
 			    	console.log(d);
-			    	var valX = d.target.x - rx;
-			    	var valY = d.target.y - ry;
-			    	console.log(d.target.x+":"+d.target.y)
-			    	console.log(rx+"-"+ry);
-			    	createjs.Ticker.setFPS(30);  
+			    	var valX = parseInt(d.target.x - rx);
+			    	var valY = parseInt(d.target.y - ry);
+			    	var offset ={xVal:valX,yVal:valY};
+			    	
+			    	createjs.Ticker.setFPS(500);  
 				    createjs.Ticker.addListener(function() {  
 				    	var container = d.target;
-			    		if(parseInt(container.x) != rx){
+			    		if(Math.abs(parseInt(containerRoot.x)) != Math.abs(valX)){
 			    			if(valX >= 0){
-					    		container.x = parseInt(container.x - 1);
+					    		containerRoot.x = parseInt(containerRoot.x - 1);
 					    	}else{
-					    		container.x = parseInt(container.x + 1);
+					    		containerRoot.x = parseInt(containerRoot.x + 1);
 					    	}
 			    		}
 			    		
-			    		if(parseInt(container.y) != ry){
+			    		if(Math.abs(parseInt(containerRoot.y)) != Math.abs(valY)){
 			    			if(valY >= 0){
-					    		container.y = parseInt(container.y - 1);
+					    		containerRoot.y = parseInt(containerRoot.y - 1);
 					    	}else{
-					    		container.y = parseInt(container.y + 1);
+					    		containerRoot.y = parseInt(containerRoot.y + 1);
 					    	}
 			    		}
-			    		console.log(container.x+":::"+container.y);
 			    		
-			    		if(container.x == rx && container.y == ry){
+			    		if(Math.abs(parseInt(containerRoot.x)) == Math.abs(valX) && Math.abs(parseInt(containerRoot.y)) == Math.abs(valY)){
 			    			createjs.Ticker.removeAllListeners();
+			    			
+			    			window.setTimeout(function(){
+					        	var userData = app.transformData(view.dataSet,d.target.name);
+					        	view.showView(userData,offset);
+					       	},app.speed);
 			    		}
+			    		
 				        stage.update();  
+				       
 				    });  
 			    	
 			    	//stage.update();

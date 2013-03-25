@@ -16,6 +16,8 @@ var app = app || {};
 
 (function($) {
 	
+	app.speed = 500;
+	
 	app.render = function(templateName,data){
 		data = data || {};
 		return render(templateName,data);

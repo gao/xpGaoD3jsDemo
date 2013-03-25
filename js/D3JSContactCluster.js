@@ -129,7 +129,7 @@
 				      	.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
 				      	.text(function(d) { return d.name; });
 				      	
-				vis.transition().ease("linear").duration(500).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
+				vis.transition().ease("linear").duration(app.speed).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
 						    
 				function getNodeTranslate(d){
 		        	var translate = (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y);
@@ -157,13 +157,13 @@
 							
 		  			    view.showView(userData,offset);
 
-				      	svg.select("g.curChart").transition().ease("linear").duration(500)
+				      	svg.select("g.curChart").transition().ease("linear").duration(app.speed)
 	        		  		.attr("transform", "translate(" + (rx-parseFloat(cxVal)) + "," + (ry-parseFloat(cyVal)) + ")")
 	        		  		.style("opacity",0);
 				       
 			        	window.setTimeout(function(){
 			        		svg.remove();
-			        	},500);
+			        	},app.speed);
 		        	}
 		        }
 	
