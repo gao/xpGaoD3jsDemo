@@ -31,13 +31,11 @@
 				//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
-				
-			    
 				    
 				var canvas = $e.find("#ClusterChartCanvas")[0];
 				var stage = new createjs.Stage(canvas);
 				view.stage = stage;
-				var container = createContainer.call(view,childrenData);
+				var container = createContainer.call(view,data.name,childrenData);
 				container.name = view.currentContainerName;
 				container.alpha = 1;
 				stage.addChild(container);
@@ -46,7 +44,7 @@
         });
         
         // --------- Private Method --------- //
-        	function createContainer(childrenData){
+        	function createContainer(parentName, childrenData){
         		var view = this;
       			var stage = view.stage;
       			var w = 1000,
@@ -103,6 +101,11 @@
 			    		.beginStroke("#006400").drawCircle(rx, ry, 11)
 			    		.closePath();
 			    containerRoot.addChild(circle);
+			    var text = new createjs.Text(parentName, "12px Arial", "#777");
+					text.x = rx+10;
+					text.y = ry+10;
+				containerRoot.addChild(text);
+			    
 			    
 			    function clickEvent(d){
 			    	//change the origin node and the click node
@@ -133,7 +136,7 @@
 						childrenData.sort(weightSort);
 						
 						//add new container
-						var newContainer = createContainer.call(view, childrenData);
+						var newContainer = createContainer.call(view, userData.name, childrenData);
 					    newContainer.name = view.newContainerName;
 					    newContainer.x = d.target.x - rx;
 					    newContainer.y = d.target.y - ry;
