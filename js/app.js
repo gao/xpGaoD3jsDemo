@@ -15,8 +15,13 @@ var app = app || {};
 })(window);
 
 (function($) {
-	
+	//control the speed of animation
 	app.speed = 500;
+	
+	//create the data set
+	app.dataSet = app.createDataSet(300);
+	
+	app.ContactDao = brite.registerDao(new brite.dao.ContactDaoHandler("Contact"));
 	
 	app.render = function(templateName,data){
 		data = data || {};

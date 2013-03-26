@@ -14,11 +14,9 @@
 				var view = this;
                 var $e = view.$el;
                 
-                var dataSet = app.createDataSet(30);
-				var chartData = app.transformData(dataSet);
-				view.dataSet = dataSet;
-                
-                view.showView(chartData);
+                app.ContactDao.get().done(function(chartData){
+                	view.showView(chartData);
+				});
 			},
            showView:function (data) {
                 var view = this;
@@ -129,18 +127,21 @@
 					node.y = ry;
       				containerRoot.addChild(node);
       				
-      				var userData = app.transformData(view.dataSet,d.target.name);
-      				//sort the weight
-					var childrenData = userData.children;
-					childrenData.sort(weightSort);
+      				app.ContactDao.getByName(d.target.name).done(function(userData){
+      					//sort the weight
+		                var childrenData = userData.children;
+						childrenData.sort(weightSort);
+						
+						//add new container
+						var newContainer = createContainer.call(view, childrenData);
+					    newContainer.name = view.newContainerName;
+					    newContainer.x = d.target.x - rx;
+					    newContainer.y = d.target.y - ry;
+					    newContainer.alpha = 0;
+					    stage.addChild(newContainer);
+					});				
 					
-					//add new container
-					var newContainer = createContainer.call(view, childrenData);
-				    newContainer.name = view.newContainerName;
-				    newContainer.x = d.target.x - rx;
-				    newContainer.y = d.target.y - ry;
-				    newContainer.alpha = 0;
-				    stage.addChild(newContainer);
+					
 				    stage.update();
 					
       				createjs.Ticker.addEventListener("tick", tick);

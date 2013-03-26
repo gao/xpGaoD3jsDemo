@@ -13,12 +13,10 @@
             postDisplay:function (data, config) {
                 var view = this;
                 var $e = view.$el;
-                
-                var dataSet = app.createDataSet(30);
-				var chartData = app.transformData(dataSet);
-				view.dataSet = dataSet;
-                
-                view.showView(chartData);
+          		
+				app.ContactDao.get().done(function(chartData){
+                	view.showView(chartData);
+				});
 			},
 			showView:function(data,offset){
 				var view = this;
@@ -144,9 +142,6 @@
 		        	var cyVal = thisCircle.attr("cy");
 		        	var offset ={xVal:cxVal,yVal:cyVal};
 		        	if(view.curData.name != userName){
-		        		var parentName = d.parent.name;
-		        		var userData = app.transformData(view.dataSet,userName);
-				   		
 				   		vis.select("circle.origin").attr("class","nodes")
 				   			.attr("style","fill:url(#radialGradientNodes)")
 				   			.attr("r", 8);
@@ -155,11 +150,13 @@
 				   			.attr("style","fill:url(#radialGradientOrigin)")
 							.attr("r", 12);
 							
-		  			    view.showView(userData,offset);
-
 				      	svg.select("g.curChart").transition().ease("linear").duration(app.speed)
 	        		  		.attr("transform", "translate(" + (rx-parseFloat(cxVal)) + "," + (ry-parseFloat(cyVal)) + ")")
 	        		  		.style("opacity",0);
+	        		  	
+	        		  	app.ContactDao.getByName(userName).done(function(userData){
+		                	view.showView(userData,offset);
+						});
 				       
 			        	window.setTimeout(function(){
 			        		svg.remove();
