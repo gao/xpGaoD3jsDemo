@@ -34,7 +34,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UserWeightD3Cluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu active\">D3JSContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJSContactCluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UserWeightD3Cluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JSContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJSContactCluster</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu active\">EaselJSTweenContactCluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---

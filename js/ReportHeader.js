@@ -30,6 +30,8 @@
             		  	brite.display("D3JSContactCluster");
             		}else if(menu == "EaselJSContactCluster"){
             		  	brite.display("EaselJSContactCluster");
+            		}else if(menu == "EaselJSTweenContactCluster"){
+            		  	brite.display("EaselJSTweenContactCluster");
             		}
             	}
             }
