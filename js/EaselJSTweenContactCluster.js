@@ -6,7 +6,7 @@
 			parent:".MainScreen-main"
 		}, {
         	create:function (data, config) {
-                var html = '<div class="EaselJSTweenContactCluster"><canvas id="ClusterChart" ></canvas></div>';
+                var html = '<div class="EaselJSTweenContactCluster"><canvas id="ClusterChart" ></canvas><div class="contact-info"></div></div>';
                	var $e = $(html);
                 return $e;
             },
@@ -23,7 +23,6 @@
                 var $e = view.$el;
                 view.currentContainerName = "currentContainer";
                 view.newContainerName = "newContainer";
-                view.originPoint = "originPoint";
 				
 				//sort the weight
 				var childrenData = data.children;
@@ -113,10 +112,14 @@
 				
 				//draw the origin point
 				var circle = createCenterCircle.call(view);
-			   	circle.name = view.cName;
+			   	circle.name = parentName;
+			   	circle.children = childrenData.length;
 		      	circle.x = rx;
 		      	circle.y = ry;
 		      	containerRoot.addChild(circle);
+		      	
+		      	//add the click event for circle
+				circle.addEventListener("click", clickOriginPointEvent);
 		      	
 			    var text = createText.call(view,rx,ry, parentName);
       			containerRoot.addChild(text); 
@@ -152,9 +155,29 @@
 					    
 					    stage.update();
 					    
+					    var $contactInfo = view.$el.find(".contact-info");
+			   			$contactInfo.empty();
+				    	
+				    	$contactInfo.html('<span class="label label-info">'+userData.name+": "+childrenData.length+' friends</span>')
+					    $contactInfo.css("top",d.target.y-10);
+					    $contactInfo.css("left",d.target.x+20);
+					    
+					    var offsetX = d.target.x - rx;
+      					var offsetY = d.target.y - ry
+      					$contactInfo.css("transform", "translate(0px,0px)");
+        				setTimeout(function() {
+	      					$contactInfo.addClass("transition-medium");
+						    $contactInfo.css("transform", "translate(" + (-1*offsetX) + "px," + (-1*offsetY) + "px)");
+						    $contactInfo.on('btransitionend',function(){
+						    	$contactInfo.removeClass("transition-medium");
+						    	$contactInfo.css("transform", "");
+					            $contactInfo.empty();
+					        });
+				        }, 100);
+				    	
 					    var ox = containerRoot.x - (d.target.x - rx);
 				      	var oy = containerRoot.y - (d.target.y - ry);
-				      	console.log(ox+'::::'+oy);
+				      	
 				      	createjs.Tween.get(containerRoot).to({alpha : 0, x : ox, y : oy }, 500,createjs.Ease.quartInOut); 
 				      
 				      	createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, 500,createjs.Ease.quartInOut).call(function() {
@@ -170,6 +193,22 @@
 					
       					createjs.Ticker.addEventListener("tick", stage);
 					});		
+			    }
+			    
+			    function clickOriginPointEvent(d){
+			    	var name = d.target.name;
+			    	var children = d.target.children;
+			    	
+			    	var $contactInfo = view.$el.find(".contact-info");
+			   		
+			    	if(!$contactInfo.find("span").hasClass("label")){
+			    		$contactInfo.html('<span class="label label-info">'+name+": "+children+' friends</span>')
+				    	$contactInfo.css("top",d.target.y-10);
+				    	$contactInfo.css("left",d.target.x+20);
+			    	}else{
+			    		$contactInfo.empty();
+			    	}
+			    	
 			    }
 			    
 			    return containerRoot;
