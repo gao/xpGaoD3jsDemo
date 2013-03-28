@@ -22,6 +22,7 @@ var app = app || {};
 	app.dataSet = app.createDataSet(300);
 	
 	app.useRAF = false;
+	app.animation = "tween";
 	
 	app.ContactDao = brite.registerDao(new brite.dao.ContactDaoHandler("Contact"));
 	

@@ -15,6 +15,11 @@
                 var $e = view.$el;
                 
                 $e.find(".useRAF input[type='checkbox']").attr("checked",app.useRAF ? true : false);
+                if(app.animation == "tween"){
+                	$e.find(".animation input[type='radio'][value='tween']").attr("checked","checked");
+                }else{
+                	$e.find(".animation input[type='radio'][value='tick']").attr("checked","checked");
+                }
                 
                 app.ContactDao.get().done(function(chartData){
                 	view.chartData = chartData;
@@ -24,15 +29,21 @@
 			events: {
 				"change; .useRAF input[type='checkbox']" : function(event){
 					var view = this;
-					var $e = view.$el;
-					//var value = $(event.currentTarget).attr("checked") ? true : false;
-					//app.useRAF = value;
 					if(app.useRAF){
 						app.useRAF = false;
 					}else{
 						app.useRAF = true;
 					}
 					console.log("----useRAF:"+app.useRAF);
+					view.showView(view.chartData);
+				},
+				
+				"change; .animation input[type='radio']" : function(event){
+					var view = this;
+					var $this = $(event.currentTarget);
+					var type = $this.val();
+					app.animation = type;
+					console.log("----animation:"+app.animation);
 					view.showView(view.chartData);
 				}
 			},
@@ -185,33 +196,82 @@
 					    
 					    stage.update();
 					    
-					    createjs.CSSPlugin.install();
-					    var $contactInfo = view.$el.find(".contact-info");
-			   			if($contactInfo.find("span").size() > 0){
-			   				var leftVal = $contactInfo.position().left - (d.target.x - rx);
-			   				var topVal = $contactInfo.position().top - (d.target.y - ry);
-			   				createjs.Tween.get($contactInfo[0]).to({alpha : 0, left : leftVal, top : topVal }, app.speed,createjs.Ease.quartInOut).call(function(){
-			   					$contactInfo.empty();
-			   				});
-			   			}
-				      	
-				      	var ox = containerRoot.x - (d.target.x - rx);
-				      	var oy = containerRoot.y - (d.target.y - ry);
-				      	
-				      	createjs.Tween.get(containerRoot).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
-				      	
-				      	createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, app.speed,createjs.Ease.quartInOut).call(function() {
-				      		createjs.Ticker.removeEventListener("tick",stage);
-				        	//remove oldContainer
-					        newContainer.x = 0;
-					        newContainer.y = 0;
-					        stage.removeChild(containerRoot);
-					        newContainer.name = view.currentContainerName;
-					        newContainer.alpha = 1;
-				          	stage.update();
-				      	}); 
-					
-      					createjs.Ticker.addEventListener("tick", stage);
+					    if(app.animation == 'tween'){
+					    	console.log("--animation tween--");
+							createjs.CSSPlugin.install();
+						    var $contactInfo = view.$el.find(".contact-info");
+				   			if($contactInfo.find("span").size() > 0){
+				   				var leftVal = $contactInfo.position().left - (d.target.x - rx);
+				   				var topVal = $contactInfo.position().top - (d.target.y - ry);
+				   				createjs.Tween.get($contactInfo[0]).to({opacity : 0.1, left : leftVal, top : topVal }, app.speed,createjs.Ease.quartInOut).call(function(){
+				   					$contactInfo.empty();
+				   				});
+				   			}
+					      	
+					      	var ox = containerRoot.x - (d.target.x - rx);
+					      	var oy = containerRoot.y - (d.target.y - ry);
+					      	
+					      	createjs.Tween.get(containerRoot).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
+					      	
+					      	createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, app.speed,createjs.Ease.quartInOut).call(function() {
+					      		createjs.Ticker.removeEventListener("tick",stage);
+					        	//remove oldContainer
+						        newContainer.x = 0;
+						        newContainer.y = 0;
+						        stage.removeChild(containerRoot);
+						        newContainer.name = view.currentContainerName;
+						        newContainer.alpha = 1;
+					          	stage.update();
+					      	}); 
+						
+	      					createjs.Ticker.addEventListener("tick", stage);
+						}else{
+							console.log("--animation tick--");
+							createjs.Ticker.addEventListener("tick", tick);
+							
+		      				function tick(event) {
+		      					var $contactInfo = view.$el.find(".contact-info");
+					   			if($contactInfo.find("span").size() > 0){
+					   				/*
+					   				var offsetX = d.target.x - rx;
+					                var offsetY = d.target.y - ry
+					                $contactInfo.css("transform", "translate(0px,0px)");
+					                setTimeout(function() {
+					                  	$contactInfo.addClass("transition-medium");
+					                	$contactInfo.css("transform", "translate(" + (-1*offsetX) + "px," + (-1*offsetY) + "px)");
+					                	$contactInfo.on('btransitionend',function(){
+					                  	$contactInfo.removeClass("transition-medium");
+					                  	$contactInfo.css("transform", "");
+					                      	$contactInfo.empty();
+					                  	});
+					                }, 1);*/
+					               $contactInfo.empty();
+					   			}
+					   			
+						        var oldContainer = stage.getChildByName(view.currentContainerName);
+						        var newContainer = stage.getChildByName(view.newContainerName);
+						        oldContainer.alpha = oldContainer.alpha - 0.1;
+						        newContainer.alpha = newContainer.alpha + 0.1;
+						        
+						        oldContainer.x =  oldContainer.x - (d.target.x - rx) * 0.1;
+						        oldContainer.y =  oldContainer.y - (d.target.y - ry) * 0.1;
+						        newContainer.x =  newContainer.x - (d.target.x - rx) * 0.1;
+						        newContainer.y =  newContainer.y - (d.target.y - ry) * 0.1;
+						        
+						        stage.update(event);
+						        if(oldContainer.alpha <= 0){
+						        	createjs.Ticker.removeEventListener("tick",tick);
+							        //remove oldContainer
+							        newContainer.x = 0;
+							        newContainer.y = 0;
+							        stage.removeChild(oldContainer);
+							        newContainer.name = view.currentContainerName;
+							        newContainer.alpha = 1;
+						          	stage.update(event);
+								}
+		      				}
+						}
+					    
 					});		
 			    }
 			    
@@ -225,6 +285,7 @@
 			    		$contactInfo.html('<span class="label label-info">'+name+": "+children+' friends</span>')
 				    	$contactInfo.css("top",d.target.y-10);
 				    	$contactInfo.css("left",d.target.x+20);
+				    	$contactInfo.css("opacity",1);
 			    	}else{
 			    		$contactInfo.empty();
 			    	}

@@ -25,7 +25,7 @@ Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(fu
   
 
 
-  return "<div class=\"EaselJSTweenContactCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Use RAF</label> \n					<div class=\"toolbar-item-content useRAF\">\n						<input type=\"checkbox\" checked=\"\"/>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
+  return "<div class=\"EaselJSTweenContactCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Use RAF: </label> \n					<div class=\"toolbar-item-content useRAF\">\n						<input type=\"checkbox\"/>\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Animation: </label> \n					<div class=\"toolbar-item-content animation\">\n						<input name=\"targetType\" type=\"radio\" value=\"tween\"><span>Tween</span>\n						<input name=\"targetType\" type=\"radio\" value=\"tick\"><span>Tick</span>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-MainScreen ---
