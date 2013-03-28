@@ -6,19 +6,37 @@
 			parent:".MainScreen-main"
 		}, {
         	create:function (data, config) {
-                var html = '<div class="EaselJSTweenContactCluster"><canvas id="ClusterChart" ></canvas><div class="contact-info"></div></div>';
-               	var $e = $(html);
+                var $html = app.render("tmpl-EaselJSTweenContactCluster",{});
+               	var $e = $($html);
                 return $e;
             },
             postDisplay:function(data, config){
 				var view = this;
                 var $e = view.$el;
                 
+                $e.find(".useRAF input[type='checkbox']").attr("checked",app.useRAF ? true : false);
+                
                 app.ContactDao.get().done(function(chartData){
+                	view.chartData = chartData;
                 	view.showView(chartData);
 				});
 			},
-           showView:function (data) {
+			events: {
+				"change; .useRAF input[type='checkbox']" : function(event){
+					var view = this;
+					var $e = view.$el;
+					//var value = $(event.currentTarget).attr("checked") ? true : false;
+					//app.useRAF = value;
+					if(app.useRAF){
+						app.useRAF = false;
+					}else{
+						app.useRAF = true;
+					}
+					console.log("----useRAF:"+app.useRAF);
+					view.showView(view.chartData);
+				}
+			},
+           	showView:function (data) {
                 var view = this;
                 var $e = view.$el;
                 view.currentContainerName = "currentContainer";
@@ -27,7 +45,18 @@
 				//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
-				    
+				
+				if(app.useRAF){
+					createjs.Ticker.useRAF = true;
+					createjs.Ticker.setFPS(60);
+				}else{
+					createjs.Ticker.useRAF = false;
+				}
+				
+				var $ClusterChart = $e.find(".ClusterChart");
+				$ClusterChart.empty();
+				$ClusterChart.html('<canvas id="ClusterChart" ></canvas>');  
+				  
 				var canvas = $e.find("#ClusterChart")[0];
 				canvas.width = $e.parent().width();
         		canvas.height = $e.parent().height();
@@ -141,6 +170,7 @@
       				containerRoot.addChild(node);
       				
       				app.ContactDao.getByName(d.target.name).done(function(userData){
+      					view.chartData = userData;
       					//sort the weight
 		                var childrenData = userData.children;
 						childrenData.sort(weightSort);

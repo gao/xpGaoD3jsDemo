@@ -19,6 +19,15 @@ Handlebars.templates['tmpl-EaselJSContactCluster'] = Handlebars.template(functio
   return "<div class=\"EaselJSContactCluster\">\n		<div class=\"EaselJSContactClusterSummary\"></div>\n	</div>";}
 );
 
+// template --- tmpl-EaselJSTweenContactCluster ---
+Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"EaselJSTweenContactCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Use RAF</label> \n					<div class=\"toolbar-item-content useRAF\">\n						<input type=\"checkbox\" checked=\"\"/>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
+);
+
 // template --- tmpl-MainScreen ---
 Handlebars.templates['tmpl-MainScreen'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;

@@ -21,6 +21,8 @@ var app = app || {};
 	//create the data set
 	app.dataSet = app.createDataSet(300);
 	
+	app.useRAF = false;
+	
 	app.ContactDao = brite.registerDao(new brite.dao.ContactDaoHandler("Contact"));
 	
 	app.render = function(templateName,data){
