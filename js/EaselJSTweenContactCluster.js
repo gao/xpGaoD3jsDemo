@@ -155,32 +155,22 @@
 					    
 					    stage.update();
 					    
+					    createjs.CSSPlugin.install();
 					    var $contactInfo = view.$el.find(".contact-info");
-			   			$contactInfo.empty();
-				    	
-				    	$contactInfo.html('<span class="label label-info">'+userData.name+": "+childrenData.length+' friends</span>')
-					    $contactInfo.css("top",d.target.y-10);
-					    $contactInfo.css("left",d.target.x+20);
-					    
-					    var offsetX = d.target.x - rx;
-      					var offsetY = d.target.y - ry
-      					$contactInfo.css("transform", "translate(0px,0px)");
-        				setTimeout(function() {
-	      					$contactInfo.addClass("transition-medium");
-						    $contactInfo.css("transform", "translate(" + (-1*offsetX) + "px," + (-1*offsetY) + "px)");
-						    $contactInfo.on('btransitionend',function(){
-						    	$contactInfo.removeClass("transition-medium");
-						    	$contactInfo.css("transform", "");
-					            $contactInfo.empty();
-					        });
-				        }, 100);
-				    	
-					    var ox = containerRoot.x - (d.target.x - rx);
+			   			if($contactInfo.find("span").size() > 0){
+			   				var leftVal = $contactInfo.position().left - (d.target.x - rx);
+			   				var topVal = $contactInfo.position().top - (d.target.y - ry);
+			   				createjs.Tween.get($contactInfo[0]).to({alpha : 0, left : leftVal, top : topVal }, app.speed,createjs.Ease.quartInOut).call(function(){
+			   					$contactInfo.empty();
+			   				});
+			   			}
+				      	
+				      	var ox = containerRoot.x - (d.target.x - rx);
 				      	var oy = containerRoot.y - (d.target.y - ry);
 				      	
-				      	createjs.Tween.get(containerRoot).to({alpha : 0, x : ox, y : oy }, 500,createjs.Ease.quartInOut); 
-				      
-				      	createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, 500,createjs.Ease.quartInOut).call(function() {
+				      	createjs.Tween.get(containerRoot).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
+				      	
+				      	createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, app.speed,createjs.Ease.quartInOut).call(function() {
 				      		createjs.Ticker.removeEventListener("tick",stage);
 				        	//remove oldContainer
 					        newContainer.x = 0;
@@ -201,7 +191,7 @@
 			    	
 			    	var $contactInfo = view.$el.find(".contact-info");
 			   		
-			    	if(!$contactInfo.find("span").hasClass("label")){
+			    	if($contactInfo.find("span").size() == 0){
 			    		$contactInfo.html('<span class="label label-info">'+name+": "+children+' friends</span>')
 				    	$contactInfo.css("top",d.target.y-10);
 				    	$contactInfo.css("left",d.target.x+20);
