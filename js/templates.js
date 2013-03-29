@@ -28,6 +28,15 @@ Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(fu
   return "<div class=\"EaselJSTweenContactCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Use RAF: </label> \n					<div class=\"toolbar-item-content useRAF\">\n						<input type=\"checkbox\"/>\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Animation: </label> \n					<div class=\"toolbar-item-content animation\">\n						<input name=\"targetType\" type=\"radio\" value=\"tween\"><span>Tween</span>\n						<input name=\"targetType\" type=\"radio\" value=\"tick\"><span>Tick</span>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
 );
 
+// template --- tmpl-FabricJSContactCluster ---
+Handlebars.templates['tmpl-FabricJSContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"FabricJSContactCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n	</div>";}
+);
+
 // template --- tmpl-MainScreen ---
 Handlebars.templates['tmpl-MainScreen'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -43,7 +52,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UserWeightD3Force</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UserWeightD3Cluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JSContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJSContactCluster</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu active\">EaselJSTweenContactCluster</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UW D3JSForce</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UW D3JSCluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JS ContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJS CC</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu\">EaselJS TweenJS CC</li>\n		      <li data-nav=\"FabricJSContactCluster\" class=\"menu active\">FabricJS CC</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---

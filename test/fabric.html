@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Frbric</title>
+    <script type="text/javascript" src="../js/fabric-all.min.js"></script>
+  </head>
+
+  <body>
+    <div class="bodyPage">
+    	<canvas id="c" width='1000' height='600'></canvas>
+    </div>
+    <script type="text/javascript">
+    	var canvas = new fabric.Canvas('c');
+    	
+    	var circle = new fabric.Circle({radius: 20, fill: 'green', left: 100, top: 100});
+		//circle.set('selectable', false);
+		circle.on('selected', function(options) {
+			console.log("--circle--click----");
+			if (options.target) {
+				console.log('an object was clicked! ', options.target.type);
+			}	
+		});
+		canvas.add(circle);
+		
+		var rect = new fabric.Rect({ width: 100, height: 50, fill: 'green', left: 200, top: 100 });
+		rect.on('selected', function() {
+		  console.log('--rect--click----');
+		});
+		canvas.add(rect);
+		
+		rect.animate('angle', 45, {
+		  onChange: canvas.renderAll.bind(canvas)
+		});
+		
+		
+		
+		var group = new fabric.Group();
+		var circle2 = new fabric.Circle({radius: 20, fill: 'red', left: 100, top: 200});
+		//circle.set('selectable', false);
+		circle2.on('selected', function(options) {
+			console.log("--circle2--click----");
+		});
+		group.add(circle2);
+		
+		var rect2 = new fabric.Rect({ width: 100, height: 50, fill: 'red', left: 200, top: 200 });
+		rect2.on('selected', function() {
+		  console.log('--rect2--click----');
+		});
+		group.add(rect2);
+		
+		var text2 = new fabric.Text("Use the Group", { left: 400 , top: 220, fontSize: 20, fontWeight: 'normal'});
+		group.add(text2);
+		
+		canvas.add(group);
+		
+		
+		
+		var circle3 = new fabric.Circle({radius: 20, fill: 'red', left: 100, top: 300});
+		circle3.set('selectable', false);
+		circle3.on('mouse:down', function(options) {
+			console.log("--circle2--click----");
+		});
+		canvas.add(circle3);
+		
+		var text3 = new fabric.Text("selectable false", { left: 200 , top: 300, fontSize: 20, fontWeight: 'normal'});
+		canvas.add(text3);
+
+		
+		
+		canvas.on('mouse:down', function(options) {
+			console.log("--canvas--click----");	
+		});
+    </script>
+  </body>
+
+</html>
