@@ -19,6 +19,15 @@ Handlebars.templates['tmpl-EaselJSContactCluster'] = Handlebars.template(functio
   return "<div class=\"EaselJSContactCluster\">\n		<div class=\"EaselJSContactClusterSummary\"></div>\n	</div>";}
 );
 
+// template --- tmpl-EaselJSForceCluster ---
+Handlebars.templates['tmpl-EaselJSForceCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"EaselJSForceCluster\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n	</div>";}
+);
+
 // template --- tmpl-EaselJSTweenContactCluster ---
 Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -52,7 +61,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UW D3JSForce</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UW D3JSCluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JS ContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJS CC</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu\">EaselJS TweenJS CC</li>\n		      <li data-nav=\"FabricJSContactCluster\" class=\"menu active\">FabricJS CC</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">D3JS Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">UW D3JSForce</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">UW D3JSCluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JS ContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJS</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu\">EaselJS TweenJS</li>\n		      <li data-nav=\"EaselJSForceCluster\" class=\"menu active\">EaselJS Force Cluster</li>\n		      <li data-nav=\"FabricJSContactCluster\" class=\"menu\">FabricJS</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---
