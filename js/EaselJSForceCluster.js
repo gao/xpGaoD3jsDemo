@@ -15,7 +15,6 @@
                 var $e = view.$el;
                 
                 app.ContactDao.get().done(function(chartData){
-                	view.chartData = chartData;
                 	view.showView(chartData);
 				});
 			},
@@ -54,23 +53,22 @@
         
         // --------- Private Method --------- //
         	function createContainer(data, originPoint, showChildrenLevel){
+        		console.log(data);
         		var view = this;
         		var parentName = data.name;
       			//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
 
-				//remove the same node
+				/*//remove the same node
 				if(!showChildrenLevel){
 					for(var i = 0; i < childrenData.length; i++){
-						console.log(childrenData[i].name,  view.rootName);
 						if(childrenData[i].name == view.rootName){
-							console.log("remove")
 							childrenData.splice(i,1);
 							break;
 						}
 					}
-				}
+				}*/
 				
       			var stage = view.stage;
 				var rx = originPoint.x;
@@ -219,7 +217,8 @@
       			statLayout.addChild(node);
       				
       			app.ContactDao.getByName(d.target.name).done(function(userData){
-      				view.chartData = userData;
+      				console.log("-----------")
+      				console.log(userData);
 						
 					//add new container
 					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, true);
