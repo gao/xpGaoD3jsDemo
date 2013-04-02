@@ -58,6 +58,19 @@
       			//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
+
+				//remove the same node
+				if(!showChildrenLevel){
+					for(var i = 0; i < childrenData.length; i++){
+						console.log(childrenData[i].name,  view.rootName);
+						if(childrenData[i].name == view.rootName){
+							console.log("remove")
+							childrenData.splice(i,1);
+							break;
+						}
+					}
+				}
+
 				
       			var stage = view.stage;
 				var rx = originPoint.x;
