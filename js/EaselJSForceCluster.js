@@ -102,11 +102,11 @@
 			        var cData = childrenData[i];
 			        
 			        //draw the line
-			        var line = createLine.call(view,rx,ry,cx,cy);
+			        var line = createLine.call(view,rx,ry,cx,cy,showChildrenLevel);
 			        containerRoot.addChild(line);
 			        
 			        //draw the node
-			        var node = createNodeCircle.call(view);
+			        var node = createNodeCircle.call(view,showChildrenLevel);
 			        node.name = cData.name;
 			        node.x = cx;
 			        node.y = cy;
@@ -166,7 +166,7 @@
       				statLayout.addChild(newCircle);
       				
       				statLayout.removeChild(d.target);
-      				var node = createNodeCircle.call(view);
+      				var node = createNodeCircle.call(view,true);
 					node.x = rx;
 					node.y = ry;
       				statLayout.addChild(node);
@@ -235,16 +235,20 @@
 			    return containerRoot;
         	}
         	
-        	function createNodeCircle(name){
+        	function createNodeCircle(showChildrenLevel){
 		      	var r = 7;
+		      	var color = "#d9eefe";
+		    	if(showChildrenLevel){
+		    		color = "#0B95B1";
+		    	}
 		      	var circle = new createjs.Shape();
-		      		circle.graphics.beginFill("#d9eefe").drawCircle(0, 0, r);
+		      		circle.graphics.beginFill(color).drawCircle(0, 0, r);
 		      		circle.graphics.beginStroke("#979ca3").drawCircle(0, 0, r+1);
 		      		circle.graphics
 		      	return circle;
 		    }
 		    
-		    function createCenterCircle(name){
+		    function createCenterCircle(){
 		      	var r = 7;
 		      	var circle = new createjs.Shape();
 		      		circle.graphics.beginStroke("#a4998e").drawCircle(0, 0, r+1);
@@ -252,14 +256,18 @@
 		      	return circle;
 		    }
 		    
-		    function createLine(x0, y0, x1, y1){
+		    function createLine(x0, y0, x1, y1, showChildrenLevel){
+		    	var color = "#dddddd";
+		    	if(showChildrenLevel){
+		    		color = "#0B95B1";
+		    	}
 		      	var line = new createjs.Shape();
-		      		line.graphics.beginStroke("#dddddd").moveTo(x0,y0).lineTo(x1,y1);
+		      		line.graphics.beginStroke(color).moveTo(x0,y0).lineTo(x1,y1);
 		      	return line;
 		    }
 		    
 		    function createText(x0, y0, name){
-		      	var text = new createjs.Text(name, "12px Arial, #000");
+		      	var text = new createjs.Text(name, "10px Arial, #000");
 		      		text.x = x0 - 10;
 		      		text.y = y0 + 10;
 		      	return text;
