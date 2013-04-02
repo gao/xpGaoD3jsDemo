@@ -94,6 +94,22 @@
 			        fpos.push({x:cx, y:cy});
 			    }
 			    
+			     //show the children level
+				if(showChildrenLevel){
+	        		$.each(childrenData,function(i,item){
+	        			var cx = fpos[i].x;
+				        var cy = fpos[i].y;
+				        var cData = childrenData[i];
+				        
+				        var childName = cData.name;
+				        
+					    app.ContactDao.getByName(childName).done(function(userData){
+							var newContainer = createContainer.call(view, userData, {x:cx, y:cy}, false);
+							containerRoot.addChild(newContainer);
+					    });
+					});
+				}
+			    
         		//draw the nodes and line
         		$.each(childrenData,function(i,item){
         			if(view.rootName == item.name) return;
@@ -136,21 +152,7 @@
 	      			containerRoot.addChild(text); 
 				}
 				
-			    //show the children level
-				if(showChildrenLevel){
-	        		$.each(childrenData,function(i,item){
-	        			var cx = fpos[i].x;
-				        var cy = fpos[i].y;
-				        var cData = childrenData[i];
-				        
-				        var childName = cData.name;
-				        
-					    app.ContactDao.getByName(childName).done(function(userData){
-							var newContainer = createContainer.call(view, userData, {x:cx, y:cy}, false);
-							containerRoot.addChild(newContainer);
-					    });
-					});
-				}
+			   
 			    
 			    function clickEvent(d){
 			    	//change the origin node and the click node
