@@ -43,7 +43,7 @@
 
 				var stage = new createjs.Stage(canvas);
 				view.stage = stage;
-				var container = createContainer.call(view, data, view.originPoint, true);
+				var container = createContainer.call(view, data, view.originPoint, true, 0);
 				container.name = view.currentContainerName;
 				container.alpha = 1;
 				stage.addChild(container);
@@ -52,13 +52,15 @@
         });
         
         // --------- Private Method --------- //
-        	function createContainer(data, originPoint, showChildrenLevel){
-        		console.log(data);
+        	function createContainer(data, originPoint, showChildrenLevel,exAngle){
         		var view = this;
         		var parentName = data.name;
       			//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
+				
+				//put the root data as the first one
+				childrenData = app.transformDataFirst(childrenData,view.rootName);
 				
       			var stage = view.stage;
 				var rx = originPoint.x;
@@ -76,8 +78,8 @@
 					weight = 10 - weight;
 					
 			        var l = weight * weightPerLength + baseLineLen;
-			        var cx = rx + l * Math.sin(angle * i);
-			        var cy = ry + l * Math.cos(angle * i);
+			        var cx = rx + l * Math.sin(angle * i + exAngle);
+			        var cy = ry + l * Math.cos(angle * i + exAngle);
 			        fpos.push({x:cx, y:cy});
 			    }
 			    
@@ -90,7 +92,7 @@
 				        var childName = cData.name;
 				        
 					    app.ContactDao.getByName(childName).done(function(userData){
-							var newContainer = createContainer.call(view, userData, {x:cx, y:cy}, false);
+							var newContainer = createContainer.call(view, userData, {x:cx, y:cy}, false, (Math.PI + angle* i));
 							containerRoot.addChild(newContainer);
 					    });
 					});
@@ -98,7 +100,7 @@
 			    
         		//draw the nodes and line
         		$.each(childrenData,function(i,item){
-        			if(view.rootName == item.name) return;
+        			if(!showChildrenLevel && i == 0) return;
         			var cx = fpos[i].x;
 			        var cy = fpos[i].y;
 			        var cData = childrenData[i];
@@ -204,7 +206,7 @@
       				
       			app.ContactDao.getByName(d.target.name).done(function(userData){
 					//add new container
-					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, true);
+					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, true, 0);
 					    newContainer.name = view.newContainerName;
 					    newContainer.x = d.target.x - rx;
 					    newContainer.y = d.target.y - ry;
