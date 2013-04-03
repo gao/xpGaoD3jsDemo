@@ -59,16 +59,6 @@
       			//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
-
-				/*//remove the same node
-				if(!showChildrenLevel){
-					for(var i = 0; i < childrenData.length; i++){
-						if(childrenData[i].name == view.rootName){
-							childrenData.splice(i,1);
-							break;
-						}
-					}
-				}*/
 				
       			var stage = view.stage;
 				var rx = originPoint.x;
@@ -76,7 +66,6 @@
 				var weightPerLength = showChildrenLevel ? 20 : 5;
       			var baseLineLen = showChildrenLevel ? 80 :40;
       			var angle = Math.PI * 2 / childrenData.length ;
-      			
      			var containerRoot = new createjs.Container();
      			
      			var fpos = [];
@@ -98,7 +87,6 @@
 	        			var cx = fpos[i].x;
 				        var cy = fpos[i].y;
 				        var cData = childrenData[i];
-				        
 				        var childName = cData.name;
 				        
 					    app.ContactDao.getByName(childName).done(function(userData){
@@ -125,7 +113,6 @@
 			        node.x = cx;
 			        node.y = cy;
 			        containerRoot.addChild(node);
-			        
 			       	//add the click event for node
 					node.addEventListener("click", function(d){clickEvent.call(view,d)});
 
@@ -142,7 +129,6 @@
 			      	circle.x = rx;
 			      	circle.y = ry;
 			      	containerRoot.addChild(circle);
-			      	
 			      	//add the click event for circle
 					circle.addEventListener("click", function(d){clickOriginPointEvent.call(view,d)});
 			      	
@@ -217,9 +203,6 @@
       			statLayout.addChild(node);
       				
       			app.ContactDao.getByName(d.target.name).done(function(userData){
-      				console.log("-----------")
-      				console.log(userData);
-						
 					//add new container
 					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, true);
 					    newContainer.name = view.newContainerName;
@@ -272,7 +255,7 @@
 				    $contactInfo.css("left",d.target.x+20);
 				    $contactInfo.css("opacity",1);
 			    }else{
-			    		$contactInfo.empty();
+			    	$contactInfo.empty();
 			    }
 			}
         	
