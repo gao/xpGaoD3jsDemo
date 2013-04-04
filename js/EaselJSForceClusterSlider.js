@@ -60,6 +60,14 @@
 				container.alpha = 1;
 				stage.addChild(container);
       			stage.update();
+      			
+      			$('#sl2').slider().on('slideStop', function(ev){
+                	var zoom = ev.value;
+                	var containerLayout = stage.getChildByName(view.currentContainerName);
+                	containerLayout.scaleX = zoom/100; 
+					containerLayout.scaleY = zoom/100; 
+					stage.update();
+				});
 			}
         });
         

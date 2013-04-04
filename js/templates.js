@@ -43,7 +43,7 @@ Handlebars.templates['tmpl-EaselJSForceClusterSlider'] = Handlebars.template(fun
   
 
 
-  return "<div class=\"EaselJSForceClusterSlider\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Show Level: </label> \n					<div class=\"toolbar-item-content showLevel\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"1\" data-slider-max=\"4\" data-slider-value=\"2\" value=\"\" id=\"sl1\" >\n					</div>\n				</div>\n				\n			</div>\n		</div>\n	</div>";}
+  return "<div class=\"EaselJSForceClusterSlider\">\n		<div class=\"ClusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Show Level: </label> \n					<div class=\"toolbar-item-content showLevel\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"1\" data-slider-max=\"4\" data-slider-value=\"2\" value=\"\" id=\"sl1\" >\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Zoom: </label> \n					<div class=\"toolbar-item-content zoom\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"40\" data-slider-max=\"200\" data-slider-value=\"100\" data-slider-step=\"20\" value=\"\" id=\"sl2\" >\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-EaselJSTweenContactCluster ---
