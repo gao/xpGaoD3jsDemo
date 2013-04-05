@@ -61,10 +61,21 @@
 				stage.addChild(container);
       			stage.update();
       			
+      			if(view.scaleVal){
+      				var containerLayout = stage.getChildByName(view.currentContainerName);
+      				var scaleVal = view.scaleVal;
+                	containerLayout.scaleX = scaleVal; 
+					containerLayout.scaleY = scaleVal; 
+					containerLayout.x = (1-scaleVal) * view.originPoint.x; 
+					containerLayout.y = (1-scaleVal) * view.originPoint.y; 
+					stage.update();
+      			}
+      			
       			$('#sl2').slider().on('slideStop', function(ev){
                 	var zoom = ev.value;
                 	var containerLayout = stage.getChildByName(view.currentContainerName);
                 	var scaleVal = zoom/100;
+                	view.scaleVal = scaleVal;
                 	containerLayout.scaleX = scaleVal; 
 					containerLayout.scaleY = scaleVal; 
 					containerLayout.x = (1-scaleVal) * view.originPoint.x; 
