@@ -130,7 +130,7 @@
 			        //show the children level
 					if((level-1) > 0){
 						var newData = app.transformData(app.dataSet, cData.name, parentName);
-						var newContainer = createContainer.call(view, newData, {x:cx, y:cy}, level-1, (Math.PI + angle* i));
+						var newContainer = createContainer.call(view, newData, {x:cx, y:cy}, level-1, (Math.PI + angle* i)+exAngle);
 						containerRoot.addChild(newContainer);
 					}
 				});
