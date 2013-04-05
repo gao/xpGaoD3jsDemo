@@ -31,6 +31,7 @@
                 view.rootName = data.name;
                 view.level = view.level || 2;
                 
+                $('#sl1').slider().off('slideStop');
                 $('#sl1').slider().on('slideStop', function(ev){
                 	view.level = ev.value;
                 	app.ContactDao.getByName(view.rootName).done(function(chartData){
@@ -71,6 +72,7 @@
 					stage.update();
       			}
       			
+      			$('#sl2').slider().off('slideStop');
       			$('#sl2').slider().on('slideStop', function(ev){
                 	var zoom = ev.value;
                 	var containerLayout = stage.getChildByName(view.currentContainerName);
