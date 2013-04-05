@@ -64,8 +64,11 @@
       			$('#sl2').slider().on('slideStop', function(ev){
                 	var zoom = ev.value;
                 	var containerLayout = stage.getChildByName(view.currentContainerName);
-                	containerLayout.scaleX = zoom/100; 
-					containerLayout.scaleY = zoom/100; 
+                	var scaleVal = zoom/100;
+                	containerLayout.scaleX = scaleVal; 
+					containerLayout.scaleY = scaleVal; 
+					containerLayout.x = (1-scaleVal) * view.originPoint.x; 
+					containerLayout.y = (1-scaleVal) * view.originPoint.y; 
 					stage.update();
 				});
 			}
