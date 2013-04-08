@@ -64,7 +64,7 @@
 					createjs.Ticker.useRAF = false;
 				}
 				
-				var $ClusterChart = $e.find(".ClusterChart");
+				var $ClusterChart = $e.find(".clusterChart");
 				$ClusterChart.empty();
 				$ClusterChart.html('<canvas id="ClusterChart" ></canvas>');  
 				  

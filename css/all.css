@@ -128,7 +128,7 @@ body {
 .EaselJSContactCluster canvas {
   float: left;
 }
-.EaselJSTweenContactCluster {
+.easelJSContainer {
   position: absolute;
   top: 0;
   right: 0;
@@ -139,95 +139,18 @@ body {
   top: 10px;
   bottom: 10px;
 }
-.EaselJSTweenContactCluster .ClusterChart {
+.easelJSContainer .clusterChart {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
-.EaselJSTweenContactCluster .contact-info {
+.easelJSContainer .contact-info {
   position: absolute;
   z-index: 2;
 }
-.EaselJSTweenContactCluster .contact-toolbar {
-  position: absolute;
-  height: 32px;
-  left: 10px;
-  right: 10px;
-  top: 0;
-  bottom: 0;
-  background: #B9DFE2;
-}
-.EaselJSTweenContactCluster .toolItems {
-  position: relative;
-  min-width: 430px;
-}
-.EaselJSTweenContactCluster .toolItems .toolbar-item {
-  position: relative;
-  min-width: 100px;
-  float: left;
-  margin: 3px 0 2px 5px;
-}
-.EaselJSTweenContactCluster .toolItems .toolbar-item label {
-  float: left;
-}
-.EaselJSTweenContactCluster .toolItems .toolbar-item .toolbar-item-content {
-  float: left;
-  margin: 0 0 0 5px;
-}
-.EaselJSTweenContactCluster .toolItems .toolbar-item input {
-  margin: 0 0 5px 0;
-}
-.EaselJSTweenContactCluster .toolItems .toolbar-item span {
-  margin-right: 10px;
-  margin-left: 5px;
-}
-.EaselJSForceCluster {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-}
-.EaselJSForceCluster .ClusterChart {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.EaselJSForceCluster .contact-info {
-  position: absolute;
-  z-index: 2;
-}
-.EaselJSForceClusterSlider {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-}
-.EaselJSForceClusterSlider .ClusterChart {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.EaselJSForceClusterSlider .contact-info {
-  position: absolute;
-  z-index: 2;
-}
-.EaselJSForceClusterSlider .contact-toolbar {
+.easelJSContainer .contact-toolbar {
   position: absolute;
   height: 32px;
   left: 10px;
@@ -236,51 +159,29 @@ body {
   bottom: 0;
   background: #B9DFE2;
 }
-.EaselJSForceClusterSlider .toolItems {
+.easelJSContainer .toolItems {
   position: relative;
   min-width: 430px;
 }
-.EaselJSForceClusterSlider .toolItems .toolbar-item {
+.easelJSContainer .toolItems .toolbar-item {
   position: relative;
   min-width: 100px;
   float: left;
   margin: 3px 0 2px 5px;
 }
-.EaselJSForceClusterSlider .toolItems .toolbar-item label {
+.easelJSContainer .toolItems .toolbar-item label {
   float: left;
 }
-.EaselJSForceClusterSlider .toolItems .toolbar-item .toolbar-item-content {
+.easelJSContainer .toolItems .toolbar-item .toolbar-item-content {
   float: left;
   margin: 0 0 0 5px;
 }
-.EaselJSForceClusterSlider .toolItems .toolbar-item input {
+.easelJSContainer .toolItems .toolbar-item input {
   margin: 0 0 5px 10px;
 }
-.EaselJSForceClusterSlider .toolItems .toolbar-item span {
+.easelJSContainer .toolItems .toolbar-item span {
   margin-right: 10px;
   margin-left: 5px;
-}
-.EaselJSForceClusterDrag {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-}
-.EaselJSForceClusterDrag .ClusterChart {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.EaselJSForceClusterDrag .contact-info {
-  position: absolute;
-  z-index: 2;
 }
 .FabricJSContactCluster {
   position: absolute;
