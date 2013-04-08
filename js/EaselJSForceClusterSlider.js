@@ -88,7 +88,7 @@
         });
         
         // --------- Private Method --------- //
-        	function createContainer(data, originPoint, level,exAngle){
+        	function createContainer(data, originPoint, level, exAngle){
         		var view = this;
         		var parentName = data.name;
       			//sort the weight
@@ -99,26 +99,12 @@
 				childrenData = app.transformDataFirst(childrenData,view.rootName);
 				
       			var stage = view.stage;
-				var rx = originPoint.x;
-				var ry = originPoint.y;
-				var weightPerLength = _weightPerLength[view.level - level];
-      			var baseLineLen = _baseLineLen[view.level - level];
       			var angle = Math.PI * 2 / childrenData.length ;
+      			var rx = originPoint.x;
+				var ry = originPoint.y;
      			var containerRoot = new createjs.Container();
      			
-     			var fpos = [];
-		      	for(var i = 0; i < childrenData.length; i++){
-			        var cData = childrenData[i];
-			        var weight = cData.weight;
-					//the higher weight, the closer the length
-					weight = 10 - weight;
-					
-			        var l = weight * weightPerLength + baseLineLen;
-			        var cx = rx + l * Math.sin(angle * i + exAngle);
-			        var cy = ry + l * Math.cos(angle * i + exAngle);
-			        fpos.push({x:cx, y:cy});
-			    }
-			   
+     			var fpos = calculateNodePosition.call(view,childrenData,originPoint,level,exAngle);
 			    
         		//draw the nodes and line
         		$.each(childrenData,function(i,item){
@@ -162,6 +148,29 @@
 				}
 			    
 			    return containerRoot;
+        	}
+        	
+        	function calculateNodePosition(childrenData,originPoint,level,exAngle){
+        		var view = this;
+        		var rx = originPoint.x;
+				var ry = originPoint.y;
+				var weightPerLength = _weightPerLength[view.level - level];
+      			var baseLineLen = _baseLineLen[view.level - level];
+      			var angle = Math.PI * 2 / childrenData.length ;
+        		
+        		var fpos = [];
+		      	for(var i = 0; i < childrenData.length; i++){
+			        var cData = childrenData[i];
+			        var weight = cData.weight;
+					//the higher weight, the closer the length
+					weight = 10 - weight;
+					
+			        var l = weight * weightPerLength + baseLineLen;
+			        var cx = rx + l * Math.sin(angle * i + exAngle);
+			        var cy = ry + l * Math.cos(angle * i + exAngle);
+			        fpos.push({x:cx, y:cy});
+			    }
+			    return fpos;
         	}
         	
         	function createNodeCircle(cx,cy,cName,level){
