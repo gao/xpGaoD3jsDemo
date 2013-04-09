@@ -30,6 +30,7 @@
                 view.cName = "centerCircle";
                 view.rootName = data.name;
                 view.level = view.level || 2;
+                view.scaleVal = view.scaleVal || 1;
                 
                 $('#sl1').slider().off('slideStop');
                 $('#sl1').slider().on('slideStop', function(ev){
@@ -62,27 +63,12 @@
 				stage.addChild(container);
       			stage.update();
       			
-      			if(view.scaleVal){
-      				var containerLayout = stage.getChildByName(view.currentContainerName);
-      				var scaleVal = view.scaleVal;
-                	containerLayout.scaleX = scaleVal; 
-					containerLayout.scaleY = scaleVal; 
-					containerLayout.x = (1-scaleVal) * view.originPoint.x; 
-					containerLayout.y = (1-scaleVal) * view.originPoint.y; 
-					stage.update();
-      			}
-      			
       			$('#sl2').slider().off('slideStop');
       			$('#sl2').slider().on('slideStop', function(ev){
                 	var zoom = ev.value;
-                	var containerLayout = stage.getChildByName(view.currentContainerName);
                 	var scaleVal = zoom/100;
                 	view.scaleVal = scaleVal;
-                	containerLayout.scaleX = scaleVal; 
-					containerLayout.scaleY = scaleVal; 
-					containerLayout.x = (1-scaleVal) * view.originPoint.x; 
-					containerLayout.y = (1-scaleVal) * view.originPoint.y; 
-					stage.update();
+                	zoomChange.call(view, view.scaleVal);
 				});
 			}
         });
@@ -145,6 +131,11 @@
 			    
 				    var text = createText.call(view,rx,ry, parentName);
 	      			containerRoot.addChild(text); 
+	      			
+	      			containerRoot.scaleX = view.scaleVal; 
+					containerRoot.scaleY = view.scaleVal; 
+					containerRoot.x = (1-view.scaleVal) * view.originPoint.x; 
+					containerRoot.y = (1-view.scaleVal) * view.originPoint.y; 
 				}
 			    
 			    return containerRoot;
@@ -172,6 +163,18 @@
 			    }
 			    return fpos;
         	}
+        	
+        	function zoomChange(val){
+				var view = this;
+				var stage = view.stage;
+				var containerLayout = stage.getChildByName(view.currentContainerName);
+      			var scaleVal = val || view.scaleVal;
+                containerLayout.scaleX = scaleVal; 
+				containerLayout.scaleY = scaleVal; 
+				containerLayout.x = (1-scaleVal) * view.originPoint.x; 
+				containerLayout.y = (1-scaleVal) * view.originPoint.y; 
+				stage.update();
+			}
         	
         	function createNodeCircle(cx,cy,cName,level){
         		var view = this;
@@ -238,8 +241,8 @@
 					//add new container
 					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, view.level, 0);
 					    newContainer.name = view.newContainerName;
-					    newContainer.x = d.target.x - rx;
-					    newContainer.y = d.target.y - ry;
+					    newContainer.x = newContainer.x + (d.target.x - rx)*view.scaleVal;
+					    newContainer.y = newContainer.y + (d.target.y - ry)*view.scaleVal;
 					    newContainer.alpha = 0;
 					stage.addChild(newContainer);
 					    
@@ -260,11 +263,11 @@
 					      	
 					createjs.Tween.get(statLayout).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
 					      	
-					createjs.Tween.get(newContainer).to({alpha : 1, x : 0, y : 0}, app.speed,createjs.Ease.quartInOut).call(function() {
+					createjs.Tween.get(newContainer).to({alpha : 1, x : (1-view.scaleVal)*view.originPoint.x, y : (1-view.scaleVal)*view.originPoint.y}, app.speed,createjs.Ease.quartInOut).call(function() {
 					    createjs.Ticker.removeEventListener("tick",stage);
 					    //remove oldContainer
-						newContainer.x = 0;
-						newContainer.y = 0;
+						newContainer.x = (1-view.scaleVal)*view.originPoint.x;
+						newContainer.y = (1-view.scaleVal)*view.originPoint.y;
 						stage.removeChild(statLayout);
 						newContainer.name = view.currentContainerName;
 						newContainer.alpha = 1;
