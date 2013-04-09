@@ -46,6 +46,15 @@ Handlebars.templates['tmpl-EaselJSForceClusterSlider'] = Handlebars.template(fun
   return "<div class=\"EaselJSForceClusterSlider easelJSContainer\">\n		<div class=\"clusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Show Level: </label> \n					<div class=\"toolbar-item-content showLevel\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"1\" data-slider-max=\"4\" data-slider-value=\"2\" value=\"\" id=\"sl1\" >\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Zoom: </label> \n					<div class=\"toolbar-item-content zoom\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"40\" data-slider-max=\"200\" data-slider-value=\"100\" data-slider-step=\"20\" value=\"\" id=\"sl2\" >\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
 );
 
+// template --- tmpl-EaselJSForceClusterSlider2 ---
+Handlebars.templates['tmpl-EaselJSForceClusterSlider2'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<div class=\"EaselJSForceClusterSlider2 easelJSContainer\">\n		<div class=\"clusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Show Level: </label> \n					<div class=\"toolbar-item-content showLevel\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"1\" data-slider-max=\"4\" data-slider-value=\"2\" value=\"\" id=\"sl1\" >\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Zoom: </label> \n					<div class=\"toolbar-item-content zoom\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"40\" data-slider-max=\"200\" data-slider-value=\"100\" data-slider-step=\"20\" value=\"\" id=\"sl2\" >\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
+);
+
 // template --- tmpl-EaselJSTweenContactCluster ---
 Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -79,7 +88,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">D3JSForce</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">D3JSCluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JS ContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJS</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu\">EaselJS TweenJS</li>\n		      <li data-nav=\"EaselJSForceCluster\" class=\"menu\">EaselJS ForceCluster</li>\n		      <li data-nav=\"EaselJSForceClusterSlider\" class=\"menu active\">EaselJS Slider</li>\n		      <li data-nav=\"EaselJSForceClusterDrag\" class=\"menu\">EaselJS Drag</li>\n		      <li data-nav=\"FabricJSContactCluster\" class=\"menu\">FabricJS</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar  navbar-inverse navbar-fixed-top\">\n		  <div class=\"navbar-inner\">\n		    <a class=\"brand\" href=\"#\">Demo</a>\n		    <ul class=\"nav\">\n		      <li data-nav=\"UserWeight\" class=\"menu\">UserWeight</li>\n		      <li data-nav=\"UserWeightD3\" class=\"menu\">D3JSForce</li>\n		      <li data-nav=\"UserWeightD3Cluster\" class=\"menu\">D3JSCluster</li>\n		      <li data-nav=\"D3JSContactCluster\" class=\"menu\">D3JS ContactCluster</li>\n		      <li data-nav=\"EaselJSContactCluster\" class=\"menu\">EaselJS</li>\n		      <li data-nav=\"EaselJSTweenContactCluster\" class=\"menu\">EaselJS TweenJS</li>\n		      <li data-nav=\"EaselJSForceCluster\" class=\"menu\">EaselJS ForceCluster</li>\n		      <li data-nav=\"EaselJSForceClusterSlider\" class=\"menu\">EaselJS Slider</li>\n		      <li data-nav=\"EaselJSForceClusterSlider2\" class=\"menu active\">EaselJS Slider2</li>\n		      <!--\n		      <li data-nav=\"EaselJSForceClusterDrag\" class=\"menu\">EaselJS Drag</li>\n		      -->\n		      <li data-nav=\"FabricJSContactCluster\" class=\"menu\">FabricJS</li>\n		    </ul>\n		  </div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---

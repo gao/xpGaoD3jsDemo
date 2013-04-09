@@ -36,6 +36,8 @@
             		  	brite.display("EaselJSForceCluster");
             		}else if(menu == "EaselJSForceClusterSlider"){
             		  	brite.display("EaselJSForceClusterSlider");
+            		}else if(menu == "EaselJSForceClusterSlider2"){
+            		  	brite.display("EaselJSForceClusterSlider2");
             		}else if(menu == "EaselJSForceClusterDrag"){
             		  	brite.display("EaselJSForceClusterDrag");
             		}else if(menu == "FabricJSContactCluster"){
