@@ -1,5 +1,6 @@
 <script id="tmpl-ReportHeader" type="text/html">
 	<div class="ReportHeader">
+		<!--
 		<div class="navbar  navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
 		    <a class="brand" href="#">Demo</a>
@@ -13,12 +14,51 @@
 		      <li data-nav="EaselJSForceCluster" class="menu">EaselJS ForceCluster</li>
 		      <li data-nav="EaselJSForceClusterSlider" class="menu">EaselJS Slider</li>
 		      <li data-nav="EaselJSForceClusterSlider2" class="menu active">EaselJS Slider2</li>
-		      <!--
+		      
 		      <li data-nav="EaselJSForceClusterDrag" class="menu">EaselJS Drag</li>
-		      -->
+		      
 		      <li data-nav="FabricJSContactCluster" class="menu">FabricJS</li>
 		    </ul>
 		  </div>
-		</div>
+		</div> -->
+		
+		
+		<div class="navbar navbar-inverse" style="position: static;">
+        	<div class="navbar-inner">
+            	<div class="container">
+                  	<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    	<span class="icon-bar"></span>
+                    	<span class="icon-bar"></span>
+                    	<span class="icon-bar"></span>
+                  	</a>
+                  	<a class="brand" href="#">D3JS Vs EaselJS Demo</a>
+                  	<div class="nav-collapse collapse navbar-inverse-collapse">
+                    	<ul class="nav">
+                      		<li class="dropdown">
+	                       		<a href="#" class="dropdown-toggle" data-toggle="dropdown">D3JS Demo <b class="caret"></b></a>
+	                        	<ul class="dropdown-menu">
+	                        		<li data-nav="UserWeight"><a href="#">UserWeight</a></li>
+							      	<li data-nav="UserWeightD3"><a href="#">D3JSForce</a></li>
+							      	<li data-nav="UserWeightD3Cluster"><a href="#">D3JSCluster</a></li>
+							      	<li data-nav="D3JSContactCluster"><a href="#">D3JS ContactCluster</a></li>
+	                        	</ul>
+                      		</li>
+                      		<li class="dropdown">
+	                       		<a href="#" class="dropdown-toggle" data-toggle="dropdown">EaselJS Demo <b class="caret"></b></a>
+	                        	<ul class="dropdown-menu">
+	                        		<li data-nav="EaselJSContactCluster"><a href="#">EaselJS</a></li>
+							      	<li data-nav="EaselJSTweenContactCluster"><a href="#">EaselJS TweenJS</a></li>
+							      	<li data-nav="EaselJSForceCluster"><a href="#">EaselJS ForceCluster</a></li>
+							      	<li data-nav="EaselJSForceClusterSlider"><a href="#">EaselJS Slider</a></li>
+	                        	</ul>
+                      		</li>
+                      		<li data-nav="EaselJSForceClusterSlider2" class="active"><a href="#">EaselJS Slider2</a></li>
+                      		<li data-nav="EaselJSForceClusterDrag"><a href="#">EaselJS Drag</a></li>
+                      		<li data-nav="FabricJSContactCluster"><a href="#">FabricJS</a></li>
+                    	</ul>
+                  	</div><!-- /.nav-collapse -->
+                </div>
+            </div><!-- /navbar-inner -->
+        </div><!-- /navbar -->
 	</div>
 </script>
