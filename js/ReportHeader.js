@@ -13,7 +13,7 @@
                 
             },
             events:{
-            	"btap;.nav li":function(e){
+            	"btap;.nav li.nav-item":function(e){
             		var view = this;
             		var $e = view.$el;
             		var $li = $(e.currentTarget);
@@ -43,6 +43,8 @@
             		}else if(menu == "FabricJSContactCluster"){
             		  	brite.display("FabricJSContactCluster");
             		}
+            		
+            		$li.closest(".dropdown").addClass("active");
             	}
             }
         });
