@@ -54,6 +54,7 @@
         		view.canvasW = canvas.width;
         		view.canvasH = canvas.height;
         		view.originPoint = {x:view.canvasW/2, y: view.canvasH/2};
+        		view.mousemove = false;
 
 				var stage = new createjs.Stage(canvas);
 				view.stage = stage;
@@ -103,12 +104,19 @@
 			        var node = createNodeCircle.call(view,cx,cy,cData.name,level);
 			        containerRoot.addChild(line);
 			        containerRoot.addChild(node);
+			        node.originPotint = {cx:cx,cy:cy};
+			        node.relatedLine = line;
+			        
+			        node.addEventListener("mousedown", function(d){mousedownEvent.call(view,d)});
+			        
 			       	//add the click event for node
 					node.addEventListener("click", function(d){clickEvent.call(view,d)});
 
 			        //show the label
 			        if((view.level-level) <= 1){
 			        	var text = createText.call(view,cx,cy, cData.name);
+			        	node.relatedText = text;
+			        	text.originPotint = {x:cx - 10,y:cy + 10};
 			        	containerRoot.addChild(text);
 			        }
 			        
@@ -116,6 +124,7 @@
 					if((level-1) > 0){
 						var newData = app.transformData(app.dataSet, cData.name, parentName);
 						var newContainer = createContainer.call(view, newData, {x:cx, y:cy}, level-1, (Math.PI + angle* i)+exAngle);
+						node.relatedContainer = newContainer;
 						containerRoot.addChild(newContainer);
 					}
 				});
@@ -207,6 +216,11 @@
 		    	var color = _colors[view.level - level];
 		      	var line = new createjs.Shape();
 		      		line.graphics.beginStroke(color).moveTo(x0,y0).lineTo(x1,y1);
+		      		line.color = color;
+		      		line.x0 = x0;
+			        line.y0 = y0;
+			        line.x1 = x1;
+			        line.y1 = y1;
 		      	return line;
 		    }
 		    
@@ -219,6 +233,7 @@
 		    
 		    function clickEvent(d){
 		    	var view = this;
+		    	if(view.mousemove) return;
 			    //change the origin node and the click node
 			    var stage = view.stage;
 			    view.rootName = d.target.name;
@@ -293,6 +308,84 @@
 			    	$contactInfo.empty();
 			    }
 			}
+			
+			function mousedownEvent(evt){
+				var view = this;
+			    var stage = view.stage;
+			    view.mousemove = false;
+				var target = evt.target;
+			    var ox = target.x;
+			    var oy = target.y;
+			    var relatedContainer = target.relatedContainer;
+			    var relatedText = target.relatedText;
+			    var relatedLine = target.relatedLine;
+			    var offset = {x:target.x-evt.stageX, y:target.y-evt.stageY};
+				
+			    evt.addEventListener("mousemove",function(ev) {
+			    	view.mousemove = true;
+			    	var offsetX = ev.stageX - target.x + offset.x;
+			        var offsetY = ev.stageY - target.y + offset.y;
+			        target.x = ev.stageX+offset.x;
+			        target.y = ev.stageY+offset.y;
+			        if(relatedContainer){
+			        	relatedContainer.x = relatedContainer.x+ offsetX;
+			        	relatedContainer.y = relatedContainer.y+ offsetY;
+			        }
+			        if(relatedText){
+			        	relatedText.x = relatedText.x+ offsetX;
+			        	relatedText.y = relatedText.y+ offsetY;
+			        }
+			        reDrawLine.call(view,relatedLine,target.x,target.y);
+			        stage.update();
+			    });
+			    
+			    evt.addEventListener("mouseup",function(ev) {
+			    	var perX = (target.originPotint.cx - target.x) /10;
+			        var perY = (target.originPotint.cy - target.y) /10;
+			        createjs.Ticker.addEventListener("tick", tick);
+			        
+			        var count = 10;
+			        function tick(event) {
+			      		target.x = target.x + perX;
+			      		target.y = target.y + perY;
+			      		if(relatedContainer){
+			      			relatedContainer.x = relatedContainer.x+perX;
+			      			relatedContainer.y = relatedContainer.y+perY;
+			      		}
+			      		
+			      		if(relatedText){
+				      		relatedText.x = relatedText.x + perX;
+				      		relatedText.y = relatedText.y + perY;
+				      	}
+			      		reDrawLine.call(view,relatedLine,relatedLine.x1+perX,relatedLine.y1+perY);
+			      		stage.update();
+			      		count--;
+				      	if(count <= 0){
+				      		createjs.Ticker.removeEventListener("tick",tick);
+				      		if(relatedContainer){
+					      		relatedContainer.x = 0;
+					      		relatedContainer.y = 0;
+				      		}
+				      		target.x = target.originPotint.cx;
+				      		target.y = target.originPotint.cy;
+				      		if(relatedText){
+					      		relatedText.x = relatedText.originPotint.x;
+					      		relatedText.y = relatedText.originPotint.y;
+				      		}
+				      		reDrawLine.call(view,relatedLine,target.originPotint.cx,target.originPotint.cy);
+				      		stage.update();
+				      	}
+			    	}
+				});
+			}
+			
+			function reDrawLine(line,offsetX,offsetY) {
+		        var view = this;
+		        var lineClone = {x0:line.x0+0, y0:line.y0+0, x1:line.x1+0, y1:line.y1+0};
+		        line.graphics.clear().beginStroke(line.color).moveTo(lineClone.x0, lineClone.y0).lineTo(offsetX, offsetY);
+		        line.x1 = offsetX;
+		        line.y1 = offsetY;
+        	}
         	
 			function weightSort(a,b){
 				return a.weight>b.weight ? 1 :-1;
