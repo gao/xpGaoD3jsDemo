@@ -58,6 +58,7 @@
 
 				var stage = new createjs.Stage(canvas);
 				view.stage = stage;
+				stage.enableMouseOver(100);
 				var container = createContainer.call(view, data, view.originPoint, view.level, 0);
 				container.name = view.currentContainerName;
 				container.alpha = 1;
@@ -106,7 +107,15 @@
 			        containerRoot.addChild(node);
 			        node.originPotint = {cx:cx,cy:cy};
 			        node.relatedLine = line;
+			        node.weight = cData.weight;
 			        
+			        //add the mouseover event for node
+			        node.addEventListener("mouseover", function(d){mouseoverEvent.call(view,d)});
+			        
+			        //add the mouseout event for node
+			        node.addEventListener("mouseout", function(d){mouseoutEvent.call(view,d)});
+			        
+			        //add the mousedown event for node
 			        node.addEventListener("mousedown", function(d){mousedownEvent.call(view,d)});
 			        
 			       	//add the click event for node
@@ -307,6 +316,23 @@
 			    }else{
 			    	$contactInfo.empty();
 			    }
+			}
+			
+			function mouseoverEvent(evt){
+				var view = this;
+			    var stage = view.stage;
+			    var target = evt.target;
+			    
+			    var $contactInfo = view.$el.find(".contact-info");
+			    $contactInfo.html('<span class="label label-info">Name: '+target.name+", Weight: "+target.weight+'</span>')
+				$contactInfo.css("top",target.y-10);
+				$contactInfo.css("left",target.x+20);
+				$contactInfo.css("opacity",1);
+			}
+			
+			function mouseoutEvent(evt){
+				var view = this;
+			    $contactInfo = view.$el.find(".contact-info").empty();
 			}
 			
 			function mousedownEvent(evt){
