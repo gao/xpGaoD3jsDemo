@@ -348,6 +348,9 @@
 			    var offset = {x:target.x-evt.stageX, y:target.y-evt.stageY};
 				
 			    evt.addEventListener("mousemove",function(ev) {
+			    	//hide the contact info when mousemove
+			    	view.$el.find(".contact-info").empty();
+			    	
 			    	view.mousemove = true;
 			    	var offsetX = ev.stageX - target.x + offset.x;
 			        var offsetY = ev.stageY - target.y + offset.y;
