@@ -159,7 +159,6 @@
 				});
 			}
 			object.children.sort(weightSort);
-			console.log(object);
 			return object;
 		}
 		
