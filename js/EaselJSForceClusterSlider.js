@@ -40,6 +40,14 @@
 					});
 				});
 				
+				$('#sl2').slider().off('slideStop');
+      			$('#sl2').slider().on('slideStop', function(ev){
+                	var zoom = ev.value;
+                	var scaleVal = zoom/100;
+                	view.scaleVal = scaleVal;
+                	zoomChange.call(view, view.scaleVal);
+				});
+				
 				createjs.Ticker.useRAF = true;
 				createjs.Ticker.setFPS(60);
 				
@@ -64,19 +72,11 @@
 				container.alpha = 1;
 				stage.addChild(container);
       			stage.update();
-      			
-      			$('#sl2').slider().off('slideStop');
-      			$('#sl2').slider().on('slideStop', function(ev){
-                	var zoom = ev.value;
-                	var scaleVal = zoom/100;
-                	view.scaleVal = scaleVal;
-                	zoomChange.call(view, view.scaleVal);
-				});
 			}
         });
         
         // --------- Private Method --------- //
-        	function createContainer(data, originPoint, level, exAngle){
+        	function createContainer(data, originPoint, level, exAngle, isRecreate){
         		var view = this;
         		var parentName = data.name;
       			//sort the weight
@@ -84,7 +84,7 @@
 				childrenData.sort(weightSort);
 				
 				//put the root data as the first one
-				childrenData = app.transformDataFirst(childrenData,view.rootName);
+				childrenData = app.transformDataFirst(childrenData,isRecreate?view.oldRootName:view.rootName);
 				
       			var stage = view.stage;
       			var angle = Math.PI * 2 / childrenData.length ;
@@ -107,6 +107,7 @@
 			        containerRoot.addChild(node);
 			        node.originPotint = {cx:cx,cy:cy};
 			        node.relatedLine = line;
+			        node.angleVal = fpos[i].angleVal;
 			        node.weight = cData.weight;
 			        
 			        //add the mouseover event for node
@@ -177,7 +178,7 @@
 			        var l = weight * weightPerLength + baseLineLen;
 			        var cx = rx + l * Math.sin(angle * i + exAngle);
 			        var cy = ry + l * Math.cos(angle * i + exAngle);
-			        fpos.push({x:cx, y:cy});
+			        fpos.push({x:cx, y:cy, angleVal:(angle * i + exAngle)});
 			    }
 			    return fpos;
         	}
@@ -245,6 +246,7 @@
 		    	if(view.mousemove) return;
 			    //change the origin node and the click node
 			    var stage = view.stage;
+			    view.oldRootName = view.rootName;
 			    view.rootName = d.target.name;
 			    var rx = view.originPoint.x;
 			    var ry = view.originPoint.y;
@@ -260,10 +262,10 @@
       			statLayout.removeChild(d.target);
       			var node = createNodeCircle.call(view,rx,ry,view.cName,view.level);
       			statLayout.addChild(node);
-      				
+      			console.log(d.target.angleVal);
       			app.ContactDao.getByName(d.target.name).done(function(userData){
 					//add new container
-					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, view.level, 0);
+					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, view.level, (Math.PI+d.target.angleVal),true);
 					    newContainer.name = view.newContainerName;
 					    newContainer.x = newContainer.x + (d.target.x - rx)*view.scaleVal;
 					    newContainer.y = newContainer.y + (d.target.y - ry)*view.scaleVal;
@@ -286,7 +288,7 @@
 					var oy = statLayout.y - (d.target.y - ry);
 					      	
 					createjs.Tween.get(statLayout).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
-					      	
+					     	
 					createjs.Tween.get(newContainer).to({alpha : 1, x : (1-view.scaleVal)*view.originPoint.x, y : (1-view.scaleVal)*view.originPoint.y}, app.speed,createjs.Ease.quartInOut).call(function() {
 					    createjs.Ticker.removeEventListener("tick",stage);
 					    //remove oldContainer
