@@ -53,19 +53,21 @@
                 var $e = view.$el;
                 var stage = view.stage;
                 
-                $('#sl1').slider().off('slideStop');
-                $('#sl1').slider().on('slideStop', function(ev){
-                	view.level = ev.value;
-                	app.ContactDao.getByName(view.rootName).done(function(chartData){
-	                	var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
-	                	var statLayout = stage.getChildByName(view.currentContainerName);
-	                	stage.removeChild(statLayout);
-                		view.showView(data);
-					});
+                $('#sl1').slider().off('slide');
+                $('#sl1').slider().on('slide', function(ev){
+                	if(view.level != ev.value){
+                		view.level = ev.value;
+	                	app.ContactDao.getByName(view.rootName).done(function(chartData){
+		                	var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
+		                	var statLayout = stage.getChildByName(view.currentContainerName);
+		                	stage.removeChild(statLayout);
+	                		view.showView(data);
+						});
+                	}
 				});
 				
-				$('#sl2').slider().off('slideStop');
-      			$('#sl2').slider().on('slideStop', function(ev){
+				$('#sl2').slider().off('slide');
+      			$('#sl2').slider().on('slide', function(ev){
                 	var zoom = ev.value;
                 	var scaleVal = zoom/100;
                 	view.scaleVal = scaleVal;

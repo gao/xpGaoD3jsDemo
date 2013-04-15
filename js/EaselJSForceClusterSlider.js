@@ -32,16 +32,18 @@
                 view.level = view.level || 2;
                 view.scaleVal = view.scaleVal || 1;
                 
-                $('#sl1').slider().off('slideStop');
-                $('#sl1').slider().on('slideStop', function(ev){
-                	view.level = ev.value;
-                	app.ContactDao.getByName(view.rootName).done(function(chartData){
-	                	view.showView(chartData);
-					});
+                $('#sl1').slider().off('slide');
+                $('#sl1').slider().on('slide', function(ev){
+                	if(view.level != ev.value){
+                		view.level = ev.value;
+	                	app.ContactDao.getByName(view.rootName).done(function(chartData){
+		                	view.showView(chartData);
+						});
+                	}
 				});
 				
-				$('#sl2').slider().off('slideStop');
-      			$('#sl2').slider().on('slideStop', function(ev){
+				$('#sl2').slider().off('slide');
+      			$('#sl2').slider().on('slide', function(ev){
                 	var zoom = ev.value;
                 	var scaleVal = zoom/100;
                 	view.scaleVal = scaleVal;
