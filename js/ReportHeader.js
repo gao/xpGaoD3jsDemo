@@ -10,9 +10,27 @@
             postDisplay:function (data, config) {
                 var view = this;
                 var $e = view.$el;
+                view.level = view.level || 2;
+                view.scaleVal = view.scaleVal || 1;
                 
                 $e.find("li.d3jsPart").hide();
                 $e.find("li.fabricjsPart").hide();
+                
+                $('#sl1').slider().off('slide');
+                $('#sl1').slider().on('slide', function(ev){
+                	if(view.level != ev.value){
+                		view.level = ev.value;
+	                	view.$el.trigger("DO_SLIDE_LEVEL",{level:ev.value});
+                	}
+				});
+				
+				$('#sl2').slider().off('slide');
+      			$('#sl2').slider().on('slide', function(ev){
+                	var zoom = ev.value;
+                	var scaleVal = zoom/100;
+                	view.scaleVal = scaleVal;
+                	view.$el.trigger("DO_SLIDE_ZOOM",{scaleVal:scaleVal});
+				});
             },
             events:{
             	"btap;.nav li.nav-menu":function(e){

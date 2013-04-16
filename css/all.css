@@ -37,7 +37,7 @@ body {
 .MainScreen .MainScreen-header {
   position: absolute;
   width: 100%;
-  height: 45px;
+  height: 80px;
 }
 .MainScreen .MainScreen-main {
   position: absolute;
@@ -45,8 +45,44 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  top: 45px;
+  top: 90px;
   overflow: auto;
+}
+.ReportHeader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.ReportHeader .ControlBar {
+  border-bottom: 1px solid #ddd;
+}
+.ControlBar .toolItems {
+  position: relative;
+  min-width: 430px;
+  height: 30px;
+  margin: 5px 10px;
+}
+.ControlBar .toolItems .toolbar-item {
+  position: relative;
+  min-width: 100px;
+  float: left;
+  margin: 5px 5px 5px 5px;
+}
+.ControlBar .toolItems .toolbar-item label {
+  float: left;
+}
+.ControlBar .toolItems .toolbar-item .toolbar-item-content {
+  float: left;
+  margin: 0 0 0 5px;
+}
+.ControlBar .toolItems .toolbar-item input {
+  margin: 0 0 5px 10px;
+}
+.ControlBar .toolItems .toolbar-item span {
+  margin-right: 10px;
+  margin-left: 5px;
 }
 .UserWeight {
   margin: 10px;
@@ -128,39 +164,6 @@ body {
 .easelJSContainer .contact-info {
   position: absolute;
   z-index: 2;
-}
-.easelJSContainer .contact-toolbar {
-  position: absolute;
-  height: 32px;
-  left: 10px;
-  right: 10px;
-  top: 18px;
-  bottom: 0;
-  background: #B9DFE2;
-}
-.easelJSContainer .toolItems {
-  position: relative;
-  min-width: 430px;
-}
-.easelJSContainer .toolItems .toolbar-item {
-  position: relative;
-  min-width: 100px;
-  float: left;
-  margin: 3px 0 2px 5px;
-}
-.easelJSContainer .toolItems .toolbar-item label {
-  float: left;
-}
-.easelJSContainer .toolItems .toolbar-item .toolbar-item-content {
-  float: left;
-  margin: 0 0 0 5px;
-}
-.easelJSContainer .toolItems .toolbar-item input {
-  margin: 0 0 5px 10px;
-}
-.easelJSContainer .toolItems .toolbar-item span {
-  margin-right: 10px;
-  margin-left: 5px;
 }
 .FabricJSContactCluster {
   position: absolute;

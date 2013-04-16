@@ -17,10 +17,27 @@
             postDisplay:function(data, config){
 				var view = this;
                 var $e = view.$el;
+                view.level = $e.closest(".MainScreen").find(".ControlBar #sl1").val();
+               	var scaleVal = $e.closest(".MainScreen").find(".ControlBar #sl2").val();
+              	view.scaleVal = scaleVal/100;
                 
                 app.ContactDao.get().done(function(chartData){
                 	view.showView(chartData);
 				});
+			},
+			docEvents: {
+				"DO_SLIDE_LEVEL": function(event,extra){
+					var view = this;
+					view.level = extra.level;
+	                app.ContactDao.getByName(view.rootName).done(function(chartData){
+		                view.showView(chartData);
+					});
+				},
+				"DO_SLIDE_ZOOM": function(event,extra){
+					var view = this;
+					view.scaleVal = extra.scaleVal;
+	                zoomChange.call(view, extra.scaleVal);
+				}
 			},
            	showView:function (data) {
                 var view = this;
@@ -29,27 +46,7 @@
                 view.newContainerName = "newContainer";
                 view.cName = "centerCircle";
                 view.rootName = data.name;
-                view.level = view.level || 2;
-                view.scaleVal = view.scaleVal || 1;
                 
-                $('#sl1').slider().off('slide');
-                $('#sl1').slider().on('slide', function(ev){
-                	if(view.level != ev.value){
-                		view.level = ev.value;
-	                	app.ContactDao.getByName(view.rootName).done(function(chartData){
-		                	view.showView(chartData);
-						});
-                	}
-				});
-				
-				$('#sl2').slider().off('slide');
-      			$('#sl2').slider().on('slide', function(ev){
-                	var zoom = ev.value;
-                	var scaleVal = zoom/100;
-                	view.scaleVal = scaleVal;
-                	zoomChange.call(view, view.scaleVal);
-				});
-				
 				createjs.Ticker.useRAF = true;
 				createjs.Ticker.setFPS(60);
 				
@@ -264,7 +261,7 @@
       			statLayout.removeChild(d.target);
       			var node = createNodeCircle.call(view,rx,ry,view.cName,view.level);
       			statLayout.addChild(node);
-      			console.log(d.target.angleVal);
+      			
       			app.ContactDao.getByName(d.target.name).done(function(userData){
 					//add new container
 					var newContainer = createContainer.call(view, userData, {x:view.canvasW/2, y: view.canvasH/2}, view.level, (Math.PI+d.target.angleVal),true);

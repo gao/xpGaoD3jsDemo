@@ -17,8 +17,9 @@
             postDisplay:function(data, config){
 				var view = this;
                 var $e = view.$el;
-                view.level = view.level || 2;
-                view.scaleVal = view.scaleVal || 1;
+                view.level = $e.closest(".MainScreen").find(".ControlBar #sl1").val();
+               	var scaleVal = $e.closest(".MainScreen").find(".ControlBar #sl2").val();
+              	view.scaleVal = scaleVal/100;
                 
                 var $ClusterChart = $e.find(".clusterChart");
 				$ClusterChart.empty();
@@ -48,31 +49,28 @@
                 	view.showView(data);
 				});
 			},
+			docEvents: {
+				"DO_SLIDE_LEVEL": function(event,extra){
+					var view = this;
+					var stage = view.stage;
+					view.level = extra.level;
+	               	app.ContactDao.getByName(view.rootName).done(function(chartData){
+		                var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
+		                var statLayout = stage.getChildByName(view.currentContainerName);
+		                stage.removeChild(statLayout);
+	                	view.showView(data);
+					});
+				},
+				"DO_SLIDE_ZOOM": function(event,extra){
+					var view = this;
+					view.scaleVal = extra.scaleVal;
+	                zoomChange.call(view, extra.scaleVal);
+				}
+			},
            	showView:function (data) {
                 var view = this;
                 var $e = view.$el;
                 var stage = view.stage;
-                
-                $('#sl1').slider().off('slide');
-                $('#sl1').slider().on('slide', function(ev){
-                	if(view.level != ev.value){
-                		view.level = ev.value;
-	                	app.ContactDao.getByName(view.rootName).done(function(chartData){
-		                	var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
-		                	var statLayout = stage.getChildByName(view.currentContainerName);
-		                	stage.removeChild(statLayout);
-	                		view.showView(data);
-						});
-                	}
-				});
-				
-				$('#sl2').slider().off('slide');
-      			$('#sl2').slider().on('slide', function(ev){
-                	var zoom = ev.value;
-                	var scaleVal = zoom/100;
-                	view.scaleVal = scaleVal;
-                	zoomChange.call(view, view.scaleVal);
-				});
 				
 				var container = createContainer.call(view, data);
 				container.name = view.currentContainerName;
