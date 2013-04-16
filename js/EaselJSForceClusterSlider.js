@@ -20,7 +20,7 @@
                 view.level = $e.closest(".MainScreen").find(".ControlBar #sl1").val();
                	var scaleVal = $e.closest(".MainScreen").find(".ControlBar #sl2").val();
               	view.scaleVal = scaleVal/100;
-                
+              	
                 app.ContactDao.get().done(function(chartData){
                 	view.showView(chartData);
 				});
@@ -251,6 +251,10 @@
 		    function clickEvent(d){
 		    	var view = this;
 		    	if(view.mousemove) return;
+		    	
+		    	//get the speed value
+		    	app.animationSpeed = view.$el.closest(".MainScreen").find(".ControlBar .speed input").val();
+		    	
 			    //change the origin node and the click node
 			    var stage = view.stage;
 			    view.oldRootName = view.rootName;
@@ -286,7 +290,7 @@
 				   	if($contactInfo.find("span").size() > 0){
 				   		var leftVal = $contactInfo.position().left - (d.target.x - rx);
 				   		var topVal = $contactInfo.position().top - (d.target.y - ry);
-				   		createjs.Tween.get($contactInfo[0]).to({opacity : 0.1, left : leftVal, top : topVal }, app.speed,createjs.Ease.quartInOut).call(function(){
+				   		createjs.Tween.get($contactInfo[0]).to({opacity : 0.1, left : leftVal, top : topVal }, app.animationSpeed,createjs.Ease.quartInOut).call(function(){
 				   			$contactInfo.empty();
 				   		});
 				   	}
@@ -294,9 +298,9 @@
 					var ox = statLayout.x - (d.target.x - rx);
 					var oy = statLayout.y - (d.target.y - ry);
 					      	
-					createjs.Tween.get(statLayout).to({alpha : 0, x : ox, y : oy }, app.speed,createjs.Ease.quartInOut); 
+					createjs.Tween.get(statLayout).to({alpha : 0, x : ox, y : oy }, app.animationSpeed,createjs.Ease.quartInOut); 
 					     	
-					createjs.Tween.get(newContainer).to({alpha : 1, x : (1-view.scaleVal)*view.originPoint.x, y : (1-view.scaleVal)*view.originPoint.y}, app.speed,createjs.Ease.quartInOut).call(function() {
+					createjs.Tween.get(newContainer).to({alpha : 1, x : (1-view.scaleVal)*view.originPoint.x, y : (1-view.scaleVal)*view.originPoint.y}, app.animationSpeed,createjs.Ease.quartInOut).call(function() {
 					    createjs.Ticker.removeEventListener("tick",stage);
 					    //remove oldContainer
 						newContainer.x = (1-view.scaleVal)*view.originPoint.x;

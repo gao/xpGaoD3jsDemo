@@ -127,7 +127,7 @@
 				      	.attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
 				      	.text(function(d) { return d.name; });
 				      	
-				vis.transition().ease("linear").duration(app.speed).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
+				vis.transition().ease("linear").duration(app.animationSpeed).attr("transform", "translate(" + rx + "," + ry + ")").style("opacity",1);
 						    
 				function getNodeTranslate(d){
 		        	var translate = (d.depth>0?(d.y-150+((10-d.weight)*10)):d.y);
@@ -150,7 +150,7 @@
 				   			.attr("style","fill:url(#radialGradientOrigin)")
 							.attr("r", 12);
 							
-				      	svg.select("g.curChart").transition().ease("linear").duration(app.speed)
+				      	svg.select("g.curChart").transition().ease("linear").duration(app.animationSpeed)
 	        		  		.attr("transform", "translate(" + (rx-parseFloat(cxVal)) + "," + (ry-parseFloat(cyVal)) + ")")
 	        		  		.style("opacity",0);
 	        		  	
@@ -160,7 +160,7 @@
 				       
 			        	window.setTimeout(function(){
 			        		svg.remove();
-			        	},app.speed);
+			        	},app.animationSpeed);
 		        	}
 		        }
 	

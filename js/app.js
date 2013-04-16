@@ -16,7 +16,7 @@ var app = app || {};
 
 (function($) {
 	//control the speed of animation
-	app.speed = 500;
+	app.animationSpeed = 500;
 	
 	//create the data set
 	app.dataSet = sampledata.data01;
