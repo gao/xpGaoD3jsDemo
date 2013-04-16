@@ -65,12 +65,6 @@
             		  	brite.display("UserWeightD3Cluster");
             		}else if(menu == "D3JSContactCluster"){
             		  	brite.display("D3JSContactCluster");
-            		}else if(menu == "EaselJSContactCluster"){
-            		  	brite.display("EaselJSContactCluster");
-            		}else if(menu == "EaselJSTweenContactCluster"){
-            		  	brite.display("EaselJSTweenContactCluster");
-            		}else if(menu == "EaselJSForceCluster"){
-            		  	brite.display("EaselJSForceCluster");
             		}else if(menu == "EaselJSForceClusterSlider"){
             		  	brite.display("EaselJSForceClusterSlider");
             		}else if(menu == "EaselJSForceClusterSlider2"){

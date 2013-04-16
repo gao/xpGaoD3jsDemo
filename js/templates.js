@@ -10,24 +10,6 @@ Handlebars.templates['tmpl-D3JSContactCluster'] = Handlebars.template(function (
   return "<div class=\"D3JSContactCluster\">\n		<div class=\"D3JSContactClusterSummary\"></div>\n	</div>";}
 );
 
-// template --- tmpl-EaselJSContactCluster ---
-Handlebars.templates['tmpl-EaselJSContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "<div class=\"EaselJSContactCluster\">\n		<div class=\"EaselJSContactClusterSummary\"></div>\n	</div>";}
-);
-
-// template --- tmpl-EaselJSForceCluster ---
-Handlebars.templates['tmpl-EaselJSForceCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "<div class=\"EaselJSForceCluster easelJSContainer\">\n		<div class=\"clusterChart\"></div>\n		<div class=\"contact-info\"></div>\n	</div>";}
-);
-
 // template --- tmpl-EaselJSForceClusterSlider ---
 Handlebars.templates['tmpl-EaselJSForceClusterSlider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -44,15 +26,6 @@ Handlebars.templates['tmpl-EaselJSForceClusterSlider2'] = Handlebars.template(fu
 
 
   return "<div class=\"EaselJSForceClusterSlider2 easelJSContainer\">\n		<div class=\"clusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Show Level: </label> \n					<div class=\"toolbar-item-content showLevel\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"1\" data-slider-max=\"4\" data-slider-value=\"2\" value=\"\" id=\"sl1\" >\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Zoom: </label> \n					<div class=\"toolbar-item-content zoom\">\n						<input type=\"text\" class=\"span2\" data-slider-min=\"40\" data-slider-max=\"200\" data-slider-value=\"100\" data-slider-step=\"20\" value=\"\" id=\"sl2\" >\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
-);
-
-// template --- tmpl-EaselJSTweenContactCluster ---
-Handlebars.templates['tmpl-EaselJSTweenContactCluster'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  helpers = helpers || Handlebars.helpers;
-  
-
-
-  return "<div class=\"EaselJSTweenContactCluster easelJSContainer\">\n		<div class=\"clusterChart\"></div>\n		<div class=\"contact-info\"></div>\n		<div class=\"contact-toolbar\">\n			<div class=\"toolItems\">\n				<div class=\"toolbar-item\">\n					<label>Use RAF: </label> \n					<div class=\"toolbar-item-content useRAF\">\n						<input type=\"checkbox\"/>\n					</div>\n				</div>\n				<div class=\"toolbar-item\">\n					<label>Animation: </label> \n					<div class=\"toolbar-item-content animation\">\n						<input name=\"targetType\" type=\"radio\" value=\"tween\"><span>Tween</span>\n						<input name=\"targetType\" type=\"radio\" value=\"tick\"><span>Tick</span>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>";}
 );
 
 // template --- tmpl-FabricJSContactCluster ---
@@ -79,7 +52,7 @@ Handlebars.templates['tmpl-ReportHeader'] = Handlebars.template(function (Handle
   
 
 
-  return "<div class=\"ReportHeader\">\n		<div class=\"navbar navbar-inverse\" style=\"position: static;\">\n        	<div class=\"navbar-inner\">\n            	<div class=\"container\">\n                  	<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".navbar-inverse-collapse\">\n                    	<span class=\"icon-bar\"></span>\n                    	<span class=\"icon-bar\"></span>\n                    	<span class=\"icon-bar\"></span>\n                  	</a>\n                  	<a class=\"brand\" href=\"#\">D3JS Vs EaselJS Demo</a>\n                  	<div class=\"nav-collapse collapse navbar-inverse-collapse\">\n                    	<ul class=\"nav\">\n                      		<li class=\"dropdown\">\n	                       		<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"dropDownTitle\">EaselJS Demo</span> <b class=\"caret\"></b></a>\n	                        	<ul class=\"dropdown-menu\">\n	                        		<li data-nav=\"D3JS Demo\" class=\"nav-menu\"><a href=\"#\">D3JS Demo</a></li>\n									<li data-nav=\"EaselJS Demo\" class=\"nav-menu active\"><a href=\"#\">EaselJS Demo</a></li>\n									<li data-nav=\"FabricJS Demo\" class=\"nav-menu\"><a href=\"#\">FabricJS Demo</a></li>\n	                        	</ul>\n                      		</li>\n                      		\n                      		<li data-nav=\"UserWeight\" class=\"nav-item d3jsPart\"><a href=\"#\">UserWeight</a></li>\n							<li data-nav=\"UserWeightD3\" class=\"nav-item d3jsPart\"><a href=\"#\">D3JSForce</a></li>\n							<li data-nav=\"UserWeightD3Cluster\" class=\"nav-item d3jsPart\"><a href=\"#\">D3JSCluster</a></li>\n							<li data-nav=\"D3JSContactCluster\" class=\"nav-item d3jsPart active\"><a href=\"#\">D3JS ContactCluster</a></li>\n							\n							<li data-nav=\"EaselJSContactCluster\" class=\"nav-item easeljsPart\"><a href=\"#\">EaselJS</a></li>\n							<li data-nav=\"EaselJSTweenContactCluster\" class=\"nav-item easeljsPart\"><a href=\"#\">EaselJS TweenJS</a></li>\n							<li data-nav=\"EaselJSForceCluster\" class=\"nav-item easeljsPart\"><a href=\"#\">EaselJS ForceCluster</a></li>\n							<li data-nav=\"EaselJSForceClusterSlider\" class=\"nav-item easeljsPart active\"><a href=\"#\">EaselJS Slider</a></li>\n							<li data-nav=\"EaselJSForceClusterSlider2\" class=\"nav-item easeljsPart\"><a href=\"#\">EaselJS Slider(New Data)</a></li>\n                      		\n                      		<li data-nav=\"FabricJSContactCluster\" class=\"nav-item  fabricjsPart active\"><a href=\"#\">FabricJS</a></li>\n                    	</ul>\n                  	</div><!-- /.nav-collapse -->\n                </div>\n            </div><!-- /navbar-inner -->\n        </div><!-- /navbar -->\n	</div>";}
+  return "<div class=\"ReportHeader\">\n		<div class=\"navbar navbar-inverse\" style=\"position: static;\">\n        	<div class=\"navbar-inner\">\n            	<div class=\"container\">\n                  	<a class=\"btn btn-navbar\" data-toggle=\"collapse\" data-target=\".navbar-inverse-collapse\">\n                    	<span class=\"icon-bar\"></span>\n                    	<span class=\"icon-bar\"></span>\n                    	<span class=\"icon-bar\"></span>\n                  	</a>\n                  	<a class=\"brand\" href=\"#\">D3JS Vs EaselJS Demo</a>\n                  	<div class=\"nav-collapse collapse navbar-inverse-collapse\">\n                    	<ul class=\"nav\">\n                      		<li class=\"dropdown\">\n	                       		<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"dropDownTitle\">EaselJS Demo</span> <b class=\"caret\"></b></a>\n	                        	<ul class=\"dropdown-menu\">\n	                        		<li data-nav=\"D3JS Demo\" class=\"nav-menu\"><a href=\"#\">D3JS Demo</a></li>\n									<li data-nav=\"EaselJS Demo\" class=\"nav-menu active\"><a href=\"#\">EaselJS Demo</a></li>\n									<li data-nav=\"FabricJS Demo\" class=\"nav-menu\"><a href=\"#\">FabricJS Demo</a></li>\n	                        	</ul>\n                      		</li>\n                      		\n                      		<li data-nav=\"UserWeight\" class=\"nav-item d3jsPart\"><a href=\"#\">UserWeight</a></li>\n							<li data-nav=\"UserWeightD3\" class=\"nav-item d3jsPart\"><a href=\"#\">D3JSForce</a></li>\n							<li data-nav=\"UserWeightD3Cluster\" class=\"nav-item d3jsPart\"><a href=\"#\">D3JSCluster</a></li>\n							<li data-nav=\"D3JSContactCluster\" class=\"nav-item d3jsPart active\"><a href=\"#\">D3JS ContactCluster</a></li>\n							\n							<li data-nav=\"EaselJSForceClusterSlider\" class=\"nav-item easeljsPart active\"><a href=\"#\">EaselJS Slider</a></li>\n							<li data-nav=\"EaselJSForceClusterSlider2\" class=\"nav-item easeljsPart\"><a href=\"#\">EaselJS Slider(New Data)</a></li>\n                      		\n                      		<li data-nav=\"FabricJSContactCluster\" class=\"nav-item  fabricjsPart active\"><a href=\"#\">FabricJS</a></li>\n                    	</ul>\n                  	</div><!-- /.nav-collapse -->\n                </div>\n            </div><!-- /navbar-inner -->\n        </div><!-- /navbar -->\n	</div>";}
 );
 
 // template --- tmpl-UserWeight ---
