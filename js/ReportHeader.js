@@ -33,6 +33,10 @@
 				});
             },
             events:{
+            	"btap; .toolbar-button .btn":function(e){
+            		app.ContactDao.update(app.createDataSet(30,3,6));
+            	},
+            	
             	"btap;.nav li.nav-menu":function(e){
             		var view = this;
             		var $e = view.$el;

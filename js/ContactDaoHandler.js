@@ -63,8 +63,11 @@
 				}
 			});
 		}
-		
 		return resultSet;
+	}
+	ContactDaoHandler.prototype.update = function(data) {
+		app.dataSet = data;
+		return data;
 	}
 
 	brite.dao.ContactDaoHandler = ContactDaoHandler;

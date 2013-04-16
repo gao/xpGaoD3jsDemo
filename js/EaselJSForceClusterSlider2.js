@@ -21,6 +21,44 @@
                	var scaleVal = $e.closest(".MainScreen").find(".ControlBar #sl2").val();
               	view.scaleVal = scaleVal/100;
                 
+                app.ContactDao.get().done(function(chartData){
+                	view.showView(chartData);
+				});
+			},
+			docEvents: {
+				"DO_SLIDE_LEVEL": function(event,extra){
+					var view = this;
+					var stage = view.stage;
+					view.level = extra.level;
+	               	app.ContactDao.getByName(view.rootName).done(function(chartData){
+	                	view.showView(chartData);
+					});
+				},
+				"DO_SLIDE_ZOOM": function(event,extra){
+					var view = this;
+					view.scaleVal = extra.scaleVal;
+	                zoomChange.call(view, extra.scaleVal);
+				}
+			},
+			daoEvents: {
+				"dataChange; Contact": function(){
+					var view = this;
+					app.ContactDao.get().done(function(chartData){
+	                	view.showView(chartData);
+					});
+				}
+			},
+           	showView:function (data) {
+                var view = this;
+                var $e = view.$el;
+                view.currentContainerName = "currentContainer";
+                view.newContainerName = "newContainer";
+                view.cName = "centerCircle";
+                view.rootName = data.name;
+                
+                createjs.Ticker.useRAF = true;
+				createjs.Ticker.setFPS(60);
+                
                 var $ClusterChart = $e.find(".clusterChart");
 				$ClusterChart.empty();
 				$ClusterChart.html('<canvas id="ClusterChart" ></canvas>');  
@@ -33,46 +71,13 @@
         		view.canvasH = canvas.height;
         		view.originPoint = {x:view.canvasW/2, y: view.canvasH/2};
         		
-        		view.currentContainerName = "currentContainer";
-                view.newContainerName = "newContainer";
-                view.cName = "centerCircle";
-                
-                createjs.Ticker.useRAF = true;
-				createjs.Ticker.setFPS(60);
+        		//transform data to new format
+        		var dataF = transformDataLevel.call(view, data, view.originPoint, view.level, 0);
 				
                 var stage = new createjs.Stage(canvas);
 				view.stage = stage;
-                
-                app.ContactDao.get().done(function(chartData){
-                	view.rootName = chartData.name;
-                	var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
-                	view.showView(data);
-				});
-			},
-			docEvents: {
-				"DO_SLIDE_LEVEL": function(event,extra){
-					var view = this;
-					var stage = view.stage;
-					view.level = extra.level;
-	               	app.ContactDao.getByName(view.rootName).done(function(chartData){
-		                var data = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
-		                var statLayout = stage.getChildByName(view.currentContainerName);
-		                stage.removeChild(statLayout);
-	                	view.showView(data);
-					});
-				},
-				"DO_SLIDE_ZOOM": function(event,extra){
-					var view = this;
-					view.scaleVal = extra.scaleVal;
-	                zoomChange.call(view, extra.scaleVal);
-				}
-			},
-           	showView:function (data) {
-                var view = this;
-                var $e = view.$el;
-                var stage = view.stage;
 				
-				var container = createContainer.call(view, data);
+				var container = createContainer.call(view, dataF);
 				container.name = view.currentContainerName;
 				container.alpha = 1;
 				stage.addChild(container);

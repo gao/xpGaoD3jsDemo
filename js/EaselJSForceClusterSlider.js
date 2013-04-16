@@ -39,6 +39,14 @@
 	                zoomChange.call(view, extra.scaleVal);
 				}
 			},
+			daoEvents: {
+				"dataChange; Contact": function(){
+					var view = this;
+					app.ContactDao.get().done(function(chartData){
+	                	view.showView(chartData);
+					});
+				}
+			},
            	showView:function (data) {
                 var view = this;
                 var $e = view.$el;

@@ -70,6 +70,11 @@ body {
   float: left;
   margin: 5px 5px 5px 5px;
 }
+.ControlBar .toolItems .toolbar-button {
+  position: relative;
+  float: right;
+  margin: 5px 5px 5px 5px;
+}
 .ControlBar .toolItems .toolbar-item label {
   float: left;
 }
