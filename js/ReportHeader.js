@@ -37,6 +37,16 @@
             		app.ContactDao.update(app.createDataSet(30,3,6));
             	},
             	
+            	"change; .useRAF input[type='checkbox']" : function(event){
+					var view = this;
+					if(app.useRAF){
+						app.useRAF = false;
+					}else{
+						app.useRAF = true;
+					}
+					view.$el.trigger("DO_RAF_CHANGE");
+				},
+            	
             	"btap;.nav li.nav-menu":function(e){
             		var view = this;
             		var $e = view.$el;

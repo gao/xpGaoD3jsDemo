@@ -21,7 +21,7 @@ var app = app || {};
 	//create the data set
 	app.dataSet = sampledata.data01;
 	
-	app.useRAF = false;
+	app.useRAF = true;
 	app.animation = "tween";
 	
 	app.ContactDao = brite.registerDao(new brite.dao.ContactDaoHandler("Contact"));

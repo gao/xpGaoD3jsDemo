@@ -37,6 +37,10 @@
 					var view = this;
 					view.scaleVal = extra.scaleVal;
 	                zoomChange.call(view, extra.scaleVal);
+				},
+				"DO_RAF_CHANGE": function(event,extra){
+					createjs.Ticker.useRAF = app.useRAF;
+					createjs.Ticker.setFPS(60);
 				}
 			},
 			daoEvents: {
@@ -55,7 +59,7 @@
                 view.cName = "centerCircle";
                 view.rootName = data.name;
                 
-				createjs.Ticker.useRAF = true;
+				createjs.Ticker.useRAF = app.useRAF;
 				createjs.Ticker.setFPS(60);
 				
 				var $ClusterChart = $e.find(".clusterChart");
