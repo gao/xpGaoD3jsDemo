@@ -20,7 +20,7 @@
                 $('#sl1').slider().on('slide', function(ev){
                 	if(view.level != ev.value){
                 		view.level = ev.value;
-	                	view.$el.trigger("DO_SLIDE_LEVEL",{level:ev.value});
+	                	view.$el.trigger("DO_SET_LEVEL",{level:ev.value});
                 	}
 				});
 				
@@ -29,7 +29,7 @@
                 	var zoom = ev.value;
                 	var scaleVal = zoom/100;
                 	view.scaleVal = scaleVal;
-                	view.$el.trigger("DO_SLIDE_ZOOM",{scaleVal:scaleVal});
+                	view.$el.trigger("DO_SET_ZOOM",{scaleVal:scaleVal});
 				});
             },
             events:{
@@ -44,7 +44,7 @@
 					}else{
 						app.useRAF = true;
 					}
-					view.$el.trigger("DO_RAF_CHANGE");
+					view.$el.trigger("DO_SET_RAF");
 				},
             	
             	"btap;.nav li.nav-menu":function(e){
