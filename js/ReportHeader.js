@@ -62,6 +62,9 @@
                 		brite.display("D3JSContactCluster");
                 		$e.find("li.nav-item").removeClass("active");
                 		$e.find("li.nav-item[data-nav='D3JSContactCluster']").addClass("active");
+                		
+                		//hide the ControlBar
+                		$e.find(".ControlBar").hide();
             		}else if(menu == "EaselJS Demo"){
             		  	$e.find("li.easeljsPart").show();
             		  	$e.find("li.d3jsPart").hide();
@@ -69,6 +72,9 @@
                 		brite.display("EaselJSForceClusterSlider");
                 		$e.find("li.nav-item").removeClass("active");
                 		$e.find("li.nav-item[data-nav='EaselJSForceClusterSlider']").addClass("active");
+                		
+                		//show the ControlBar
+                		$e.find(".ControlBar").show();
             		}else if(menu == "FabricJS Demo"){
             		  	$e.find("li.easeljsPart").hide();
             		  	$e.find("li.d3jsPart").hide();
@@ -76,6 +82,9 @@
                 		brite.display("FabricJSContactCluster");
                 		$e.find("li.nav-item").removeClass("active");
                 		$e.find("li.nav-item[data-nav='FabricJSContactCluster']").addClass("active");
+                		
+                		//hide the ControlBar
+                		$e.find(".ControlBar").hide();
             		}
             		
             		$li.closest(".dropdown").find(".dropDownTitle").html(menu);
