@@ -103,6 +103,7 @@
 				$.each(data.nodes,function(i,item){
 			        var cData = data.nodes[i];
 			        var node = createNodeCircle.call(view,cData.x,cData.y,cData.name,cData.level);
+			        node.angleVal = cData.angleVal;
 			        containerRoot.addChild(node);
 			       	//add the click event for node
 					node.addEventListener("click", function(d){clickEvent.call(view,d)});
@@ -143,24 +144,24 @@
 			 *          links:[{x0:..,y0:..,x1:..,y1:..,level:..},{...}]
 			 *         }
 			 */
-        	function transformDataLevel(data, originPoint, level, exAngle){
+        	function transformDataLevel(data, originPoint, level, exAngle, isRecreate){
         		var view = this;
         		var obj = {nodes:[],links:[]};
         		
         		obj.root = {"name":data.name, "childrenLength":data.children.length, "x":originPoint.x, "y":originPoint.y};
         		
-        		obj = transformDataLevelAlgo.call(view,data, originPoint, level, exAngle,obj);
+        		obj = transformDataLevelAlgo.call(view,data, originPoint, level, exAngle, obj, isRecreate);
         		return obj;
         	}
         	
-        	function transformDataLevelAlgo(data, originPoint, level, exAngle, obj){
+        	function transformDataLevelAlgo(data, originPoint, level, exAngle, obj, isRecreate){
         		var view = this;
         		var parentName = data.name;
         		//sort the weight
 				var childrenData = data.children;
 				childrenData.sort(weightSort);
 				//put the root data as the first one
-				childrenData = app.transformDataFirst(childrenData,view.rootName);
+				childrenData = app.transformDataFirst(childrenData,isRecreate?view.oldRootName:view.rootName);
 				
       			var angle = Math.PI * 2 / childrenData.length ;
       			var rx = originPoint.x;
@@ -174,7 +175,7 @@
 			        var cy = fpos[i].y;
 			        var cData = childrenData[i];
 			        obj.links.push({"x0":rx, "y0":ry, "x1":cx, "y1":cy, "level":level});
-			        obj.nodes.push({"x":cx, "y":cy, "level":level, "name":cData.name});
+			        obj.nodes.push({"x":cx, "y":cy, "level":level, "name":cData.name, "angleVal":fpos[i].angleVal});
 			       
 			        
 			        //show the children level
@@ -205,7 +206,7 @@
 			        var l = weight * weightPerLength + baseLineLen;
 			        var cx = rx + l * Math.sin(angle * i + exAngle);
 			        var cy = ry + l * Math.cos(angle * i + exAngle);
-			        fpos.push({x:cx, y:cy});
+			        fpos.push({x:cx, y:cy, angleVal:(angle * i + exAngle)});
 			    }
 			    return fpos;
         	}
@@ -271,6 +272,7 @@
 		    	
 			    //change the origin node and the click node
 			    var stage = view.stage;
+			    view.oldRootName = view.rootName;
 			    view.rootName = d.target.name;
 			    var rx = view.originPoint.x;
 			    var ry = view.originPoint.y;
@@ -288,7 +290,7 @@
       			statLayout.addChild(node);
       				
       			app.ContactDao.getByName(d.target.name).done(function(chartData){
-      				var userData = transformDataLevel.call(view, chartData, view.originPoint, view.level, 0);
+      				var userData = transformDataLevel.call(view, chartData, view.originPoint, view.level, (Math.PI+d.target.angleVal),true);
 					//add new container
 					var newContainer = createContainer.call(view, userData);
 					    newContainer.name = view.newContainerName;
@@ -331,7 +333,6 @@
 			}
 			    
 			function clickOriginPointEvent(d){
-				console.log(d.target);
 				var view = this;
 			    var children = d.target.children;
 			    var $contactInfo = view.$el.find(".contact-info");
