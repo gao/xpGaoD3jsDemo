@@ -208,7 +208,7 @@
         	
         	function createNodeCircle(cx,cy,cName,level){
         		var view = this;
-		      	var r = 4;
+		      	var r = 5;
 		    	var color = _colors[view.level - level];
 		      	var circle = new createjs.Shape();
 		      		circle.graphics.beginStroke("#a4998e").drawCircle(0, 0, r+0.5);
@@ -221,7 +221,7 @@
 		    
 		    function createCenterCircle(cx,cy,cName,level){
 		    	var view = this;
-		      	var r = 6;
+		      	var r = 5;
 		      	var color = _centerColors[view.level - level];
 		      	var circle = new createjs.Shape();
 		      		circle.graphics.beginStroke("#a4998e").drawCircle(0, 0, r+0.5);
