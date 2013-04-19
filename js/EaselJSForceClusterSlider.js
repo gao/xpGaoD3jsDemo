@@ -102,7 +102,6 @@
       			var rx = originPoint.x;
 				var ry = originPoint.y;
      			var containerRoot = new createjs.Container();
-     			
      			var fpos = calculateNodePosition.call(view,childrenData,originPoint,level,exAngle);
 			    
         		//draw the nodes and line
@@ -161,7 +160,6 @@
 			    
 				    var text = createText.call(view,rx,ry, parentName);
 	      			containerRoot.addChild(text); 
-	      			
 	      			containerRoot.scaleX = view.scaleVal; 
 					containerRoot.scaleY = view.scaleVal; 
 					containerRoot.x = (1-view.scaleVal) * view.originPoint.x; 
@@ -178,7 +176,6 @@
 				var weightPerLength = _weightPerLength[view.level - level];
       			var baseLineLen = _baseLineLen[view.level - level];
       			var angle = Math.PI * 2 / childrenData.length ;
-        		
         		var fpos = [];
 		      	for(var i = 0; i < childrenData.length; i++){
 			        var cData = childrenData[i];
@@ -265,7 +262,6 @@
 			    view.rootName = d.target.name;
 			    var rx = view.originPoint.x;
 			    var ry = view.originPoint.y;
-			    	
 			    var statLayout = stage.getChildByName(view.currentContainerName);
 			    var oldCenterCircle = statLayout.getChildByName(view.cName);
 			    statLayout.removeChild(oldCenterCircle);
@@ -286,7 +282,6 @@
 					    newContainer.y = newContainer.y + (d.target.y - ry)*view.scaleVal;
 					    newContainer.alpha = 0;
 					stage.addChild(newContainer);
-					    
 					stage.update();
 					    
 					createjs.CSSPlugin.install();
@@ -316,7 +311,6 @@
 					}); 
 						
 	      			createjs.Ticker.addEventListener("tick", stage);
-					    
 				});		
 			}
 			    

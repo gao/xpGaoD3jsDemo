@@ -16,18 +16,15 @@
                 $e.find("li.d3jsPart").hide();
                 $e.find("li.fabricjsPart").hide();
                 
-                $('#sl1').slider().off('slide');
-                $('#sl1').slider().on('slide', function(ev){
+                $('#sl1').slider().off('slide').on('slide', function(ev){
                 	if(view.level != ev.value){
                 		view.level = ev.value;
 	                	view.$el.trigger("DO_LEVEL_CHANGE",{level:ev.value});
                 	}
 				});
 				
-				$('#sl2').slider().off('slide');
-      			$('#sl2').slider().on('slide', function(ev){
-                	var zoom = ev.value;
-                	var scaleVal = zoom/100;
+				$('#sl2').slider().off('slide').on('slide', function(ev){
+                	var scaleVal = ev.value/100;
                 	view.scaleVal = scaleVal;
                 	view.$el.trigger("DO_ZOOM_CHANGE",{scaleVal:scaleVal});
 				});

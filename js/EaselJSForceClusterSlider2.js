@@ -126,7 +126,6 @@
 			    
 				var text = createText.call(view, rootData.x, rootData.y, rootData.name);
 	      		containerRoot.addChild(text); 
-	      			
 	      		containerRoot.scaleX = view.scaleVal; 
 				containerRoot.scaleY = view.scaleVal; 
 				containerRoot.x = (1-view.scaleVal) * view.originPoint.x; 
@@ -147,9 +146,7 @@
         	function transformDataLevel(data, originPoint, level, exAngle, isRecreate){
         		var view = this;
         		var obj = {nodes:[],links:[]};
-        		
         		obj.root = {"name":data.name, "childrenLength":data.children.length, "x":originPoint.x, "y":originPoint.y};
-        		
         		obj = transformDataLevelAlgo.call(view,data, originPoint, level, exAngle, obj, isRecreate);
         		return obj;
         	}
@@ -168,7 +165,6 @@
 				var ry = originPoint.y;
      			var fpos = calculateNodePosition.call(view,childrenData,originPoint,level,exAngle);
      			
-     			//draw the nodes and line
         		$.each(childrenData,function(i,item){
         			if(level != view.level && i == 0) return;
         			var cx = fpos[i].x;
@@ -176,7 +172,6 @@
 			        var cData = childrenData[i];
 			        obj.links.push({"x0":rx, "y0":ry, "x1":cx, "y1":cy, "level":level});
 			        obj.nodes.push({"x":cx, "y":cy, "level":level, "name":cData.name, "angleVal":fpos[i].angleVal});
-			       
 			        
 			        //show the children level
 					if((level-1) > 0){
@@ -184,7 +179,6 @@
 						var newContainer = transformDataLevelAlgo.call(view, newData, {x:cx, y:cy}, level-1, (Math.PI + angle* i)+exAngle, obj);
 					}
 				});
-        		
         		return obj;
         	}
         	
@@ -195,7 +189,6 @@
 				var weightPerLength = _weightPerLength[view.level - level];
       			var baseLineLen = _baseLineLen[view.level - level];
       			var angle = Math.PI * 2 / childrenData.length ;
-        		
         		var fpos = [];
 		      	for(var i = 0; i < childrenData.length; i++){
 			        var cData = childrenData[i];
@@ -298,7 +291,6 @@
 					    newContainer.y = newContainer.y + (d.target.y - ry)*view.scaleVal;
 					    newContainer.alpha = 0;
 					stage.addChild(newContainer);
-					    
 					stage.update();
 					    
 					createjs.CSSPlugin.install();
@@ -328,7 +320,6 @@
 					}); 
 						
 	      			createjs.Ticker.addEventListener("tick", stage);
-					    
 				});		
 			}
 			    
@@ -336,7 +327,6 @@
 				var view = this;
 			    var children = d.target.children;
 			    var $contactInfo = view.$el.find(".contact-info");
-			   		
 			    if($contactInfo.find("span").size() == 0){
 			    	$contactInfo.html('<span class="label label-info">'+view.rootName+": "+children+' friends</span>')
 				    $contactInfo.css("top",d.target.y-10);
