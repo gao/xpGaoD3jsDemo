@@ -26,19 +26,19 @@
 				});
 			},
 			docEvents: {
-				"DO_SET_LEVEL": function(event,extra){
+				"DO_LEVEL_CHANGE": function(event,extra){
 					var view = this;
 					view.level = extra.level;
 	                app.ContactDao.getByName(view.rootName).done(function(chartData){
 		                view.showView(chartData);
 					});
 				},
-				"DO_SET_ZOOM": function(event,extra){
+				"DO_ZOOM_CHANGE": function(event,extra){
 					var view = this;
 					view.scaleVal = extra.scaleVal;
 	                zoomChange.call(view, extra.scaleVal);
 				},
-				"DO_SET_RAF": function(event,extra){
+				"DO_RAF_CHANGE": function(event,extra){
 					createjs.Ticker.useRAF = app.useRAF;
 					createjs.Ticker.setFPS(60);
 				}
